@@ -20,10 +20,10 @@ L'installation est terminée
 
 Une fois les fichiers recopiés, il faut les appliquer.
 Pour cela aller sur l'équipement souhaité et cliquer sur l'icone engrenages :
-![configuration commande](./doc/images/cmd.info.binary_example.png)
+![configuration commande](./images/cmd.info.binary_example.png)
 
 Dans l'onglet Informations, c'est ici que l'on définit l'icône de la commande :
-![Choix de l'icone de la commande](./doc/images/defineIcon.png)
+![Choix de l'icone de la commande](./images/defineIcon.png)
 
 Dans l'onglet Affichage, c'est ici que l'on sélectionne le widget a appliquer (affectation du widget CustomTemp/nomDuWidget) :
-![Application du widget](./doc/images/applyWidget.png)
+![Application du widget](./images/applyWidget.png)
