@@ -1,0 +1,37 @@
+<!-- Info Widget Jeedom
+  Jeedom Compatibility: v4
+  Version: Dashboard
+  Type: Info
+  SubType: Binary
+  Name: cmdIconAndValue.html
+  Comment: Show command icon + icon value
+  Date: 2020-04-07
+  Source: https://github.com/Heliospeed/jeedom_widget_v4/
+-->
+<div class="cmd cmd-widget cursor #history#" data-type="info" data-subtype="binary" data-template="tmplicon" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
+    <div class="title #hide_name#">
+      <div class="cmdName">#name_display#</div>
+    </div>
+    <div class="content-sm">
+      <span class="iconCmd"></span>
+    </div>
+    <div class="value">
+      <span class="timeCmd#uid# timeCmd label label-default value"></span>
+    </div>
+  </div>
+  <script>
+        
+      jeedom.cmd.update['#id#'] = function(_options){
+        var cmd = $('.cmd[data-cmd_id=#id#]');
+        cmd.find('.title').find('i.icon').css('font-size','3em');
+        cmd.attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+  
+        if (_options.display_value == '1') {
+          cmd.find('.iconCmd').empty().append("<i class='fas fa-circle' style='font-size: 12px !important;'></i>");
+        }
+        else {
+          cmd.find('.iconCmd').empty().append("<i class='far fa-circle' style='font-size: 12px !important;'></i>");
+        }
+      }
+      jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+  </script>
