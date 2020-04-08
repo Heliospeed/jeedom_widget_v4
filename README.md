@@ -9,7 +9,7 @@ Je me suis donc décidé à customiser un widget (en m'appuyant sur la doc Jeedo
 Voici ce que donne cela donne en image
 ![Exemple](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue_Example.png)
 
-Le code est disponible ici : [cmdIconAndValue.html](./dashboard/cmd.info.binary.commandIconAndValueIcon.html)
+Le code est disponible ici : [commandIconAndValueIcon](./dashboard/cmd.info.binary.commandIconAndValueIcon.html)
 
 Si l'on ne veut pas afficher le "time widget", il faut ajouter un paramètre au widget.
 
