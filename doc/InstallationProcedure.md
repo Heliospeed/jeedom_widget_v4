@@ -27,3 +27,8 @@ Dans l'onglet Informations, c'est ici que l'on définit l'icône de la commande 
 
 Dans l'onglet Affichage, c'est ici que l'on sélectionne le widget a appliquer (affectation du widget CustomTemp/nomDuWidget) :
 ![Application du widget](./images/applyWidget.png)
+
+## Ajout d'un paramètre
+
+S'il faut ajouter un paramètre, c'est aussi dans l'onglet Affichage dans la partie Paramètres optionnels widget, il faut cliquer sur Ajouter et ensuite renseigner le nom du paramètre et sa valeur :  
+![Application du widget](./images/defineParameter.png)

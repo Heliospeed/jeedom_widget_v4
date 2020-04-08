@@ -9,12 +9,14 @@ Je me suis donc décidé à customiser un widget (en m'appuyant sur la doc Jeedo
 Voici ce que donne cela donne en image
 ![Exemple](./doc/cmd.info.binary.icon-cmdIconAndValue/cmdIconAndValue_Example.png)
 
-Il y a deux versions l'une avec le délais indiquant le changement de la valeur et l'autre sans.
+Le code est disponible ici : [cmdIconAndValue.html](./dashboard/cmd.info.binary.icon-cmdIconAndValue.html)
 
-|Time widget|Aperçu|Description|Code|
+Si l'on ne veut pas afficher le "time widget", il faut ajouter un paramètre au widget.
+
+|Parametre|valeur|Aperçu|Description|
 |-|-|-|-|
-|Présent|![ex. avec time widget](./doc/cmd.info.binary.icon-cmdIconAndValue/cmdIconAndValue_timeWidget.png)|haut : icone de l'info<br/>milieu : icone On/Off<br/>bas : le temp écoulé|[cmdIconAndValue_timeWidget.html](./dashboard/cmd.info.binary.icon-cmdIconAndValue_timeWidget.html)|
-|Absent|![ex. sans time widget](./doc/cmd.info.binary.icon-cmdIconAndValue/cmdIconAndValue.png)|haut : icone de l'info<br/>milieu : icone On/Off<br/>bas : espace vide|[cmdIconAndValue.html](./dashboard/cmd.info.binary.icon-cmdIconAndValue.html)|
+|timeWidget|on|![ex. avec time widget](./doc/cmd.info.binary.icon-cmdIconAndValue/cmdIconAndValue_timeWidget.png)|haut : icone de l'info<br/>milieu : icone On/Off<br/>bas : le temp écoulé|
+|timeWidget|off|![ex. sans time widget](./doc/cmd.info.binary.icon-cmdIconAndValue/cmdIconAndValue.png)|haut : icone de l'info<br/>milieu : icone On/Off<br/>bas : espace vide|
 
 ## Installation et affectation du widget
 
