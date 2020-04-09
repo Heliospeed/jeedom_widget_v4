@@ -15,8 +15,11 @@ Si l'on ne veut pas afficher le "time widget", il faut ajouter un paramètre au 
 
 |Parametre|valeur|Aperçu|Description|
 |-|-|-|-|
-|timeWidget|on|![ex. avec time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue_timeWidget.png)|haut : icone de l'info<br/>milieu : icone On/Off<br/>bas : le temp écoulé|
-|timeWidget|off|![ex. sans time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue.png)|haut : icone de l'info<br/>milieu : icone On/Off<br/>bas : espace vide|
+|timeWidget|on/off|on :<br>![ex. avec time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue_timeWidget.png)<br>off :<br>![ex. sans time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue.png)|haut (on/off) : icone de l'info<br/>milieu (on/off) : icone On/Off<br/>bas (on) : le temp écoulé|
+|tagIconName|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone de remplacement de la commande|
+|commandName|string (ex : Etat)||Le nom de la commande a afficher|
+|iconOn|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone a afficher la valeur est vraie.<br> (par défaut :`<i class='fas fa-circle'></i>`)|
+|iconOff|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone a afficher la valeur est fausse.<br> (par défaut :`<i class='far fa-circle'></i>`)|
 
 ## Installation et affectation du widget
 
