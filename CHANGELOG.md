@@ -1,6 +1,12 @@
 # Changelog
 Liste des modifications
 
+## [1.3] - 2020-04-10
+Ajout de paramètre pour changer la couleur de l'icône.
+### Modification :
+- cmd.info.binary.commandIconAndValueIcon.html
+- documentation
+
 ## [1.2] - 2020-04-09
 Ajout de paramètre pour remplacer les icônes par défaut.
 ### Modification :

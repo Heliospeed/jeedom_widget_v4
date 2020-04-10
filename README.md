@@ -11,12 +11,13 @@ Voici ce que donne cela donne en image
 
 Le code est disponible ici : [commandIconAndValueIcon](./dashboard/cmd.info.binary.commandIconAndValueIcon.html)
 
-Si l'on ne veut pas afficher le "time widget", il faut ajouter un paramètre au widget.
+Voici la liste des paramètres (tous optionnels)
 
 |Parametre|valeur|Aperçu|Description|
 |-|-|-|-|
 |timeWidget|on/off|on :<br>![ex. avec time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue_timeWidget.png)<br>off :<br>![ex. sans time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue.png)|haut (on/off) : icone de l'info<br/>milieu (on/off) : icone On/Off<br/>bas (on) : le temp écoulé|
 |tagIconName|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone de remplacement de la commande|
+|iconColor|string|![Exemple](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValueWithColor.png)|le code ou le nom de la couleur à appliquer (ex : "blue, "#0000FF")|
 |commandName|string (ex : Etat)||Le nom de la commande a afficher|
 |iconOn|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone a afficher la valeur est vraie.<br> (par défaut :`<i class='fas fa-circle'></i>`)|
 |iconOff|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone a afficher la valeur est fausse.<br> (par défaut :`<i class='far fa-circle'></i>`)|
