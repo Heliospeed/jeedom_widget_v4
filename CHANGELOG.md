@@ -1,6 +1,13 @@
 # Changelog
 Liste des modifications
 
+## [1.4] - 2020-04-11
+Ajout de la version mobile + uniformisation code
+### Modification :
+- cmd.info.binary.commandIconAndValueIcon.html
+- cmd.info.binary.commandIconAndValueIcon_Mobile.html
+- documentation
+
 ## [1.3] - 2020-04-10
 Ajout de paramètre pour changer la couleur de l'icône.
 ### Modification :

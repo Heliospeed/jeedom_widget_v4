@@ -1,12 +1,12 @@
 <!-- Info Widget Jeedom
   Jeedom Compatibility: v4
-  Version: Dashboard
+  Version: Mobile
   Type: Info
   SubType: Binary
   Name: cmd.info.binary.commandIconAndValueIcon.html
   Comment: Show command icon + value icon + [time value (optional)]
   Parameters: 
-  - timeWidget (on/off) - default on
+  - timeWidgetMobile (on/off) - default off
   - tagIconName : replaces the tag icon (ex : "<i class='icon jeedomapp-in'></i>")
   - iconColor : code or color Name (optional)
   - commandName : replaces the command name
@@ -29,7 +29,7 @@
 <script>
   jeedom.cmd.update['#id#'] = function(_options){
     var cmd = $('.cmd[data-cmd_id=#id#]');
-    var timeWidget 	= ('#timeWidget#'!='#'+'timeWidget#') ? "#timeWidget#" : "on";
+    var timeWidget 	= ('#timeWidgetMobile#'!='#'+'timeWidgetMobile#') ? "#timeWidgetMobile#" : "off";
     var tagIconName = ('#tagIconName#'!='#'+'tagIconName#') ? '#tagIconName#' : '';
 	var iconColor = ('#iconColor#'!='#'+'iconColor#') ? '#iconColor#' : '';
     var commandName = ('#commandName#'!='#'+'commandName#') ? '#commandName#' : '';
@@ -91,7 +91,6 @@
     else {
       cmd.find('.iconCmd').empty().append(iconOff);
     }
-
     var cssIcon = "font-size: 12px !important;";
 	cmd.find('.iconCmd').css("cssText", cssIcon);
     cmd.find('.iconCmd i').css("cssText", cssIcon);
