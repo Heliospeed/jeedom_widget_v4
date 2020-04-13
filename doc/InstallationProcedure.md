@@ -32,3 +32,8 @@ Dans l'onglet Affichage, c'est ici que l'on sélectionne le widget a appliquer (
 
 S'il faut ajouter un paramètre, c'est aussi dans l'onglet Affichage dans la partie Paramètres optionnels widget, il faut cliquer sur Ajouter et ensuite renseigner le nom du paramètre et sa valeur :  
 ![Application du widget](./images/defineParameter.png)
+
+## Activer les stats des widgets
+Si vous n'avez pas l'option de disponible, il faut l'activer en allant dans Réglages/Système/Configuration. Il faut ensuite sélectionner l'onglet Commandes puis cocher 'Afficher les statistiques sur les widgets'
+
+![Activer les stats des widgets](./images/activateWidgetsStats.png)

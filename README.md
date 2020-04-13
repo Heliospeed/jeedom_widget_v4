@@ -2,29 +2,18 @@
 Mes widgets Jeedom
 
 Je n'ai pas trouvé dans les templates de bases le widget que j'avais besoin.
-Je me suis donc décidé à customiser un widget (en m'appuyant sur la doc Jeedom)
+Je me suis donc décidé à customiser un widget, puis second (en m'appuyant sur la doc Jeedom)
 
 ## Widget d'info binaire contenant l'icone de l'info et sa valeur
+Afficher l'icône de la commande et en dessous un icône on/off.  
+- [commandIconAndValueIcon](./commandIconAndValueIcon/README.md)  
+*Pour le moment j'ai 2 scripts (dashboard/mobile) mais je vais prochainement les fusionnés.*
 
-Voici ce que donne cela donne en image
-![Exemple](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue_Example.png)
-
-Le code est disponible ici :
-- [Dashboard : commandIconAndValueIcon](./dashboard/cmd.info.binary.commandIconAndValueIcon.html)
-- [Mobile : commandIconAndValueIcon](./mobile/cmd.info.binary.commandIconAndValueIcon_Mobile.html)
-
-Voici la liste des paramètres (tous optionnels)
-
-|Parametre|version<br>DashBoard/Mobile|valeur|Aperçu|Description|
-|-|-|-|-|
-|timeWidget|on/off|on :<br>![ex. avec time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue_timeWidget.png)<br>off :<br>![ex. sans time widget](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValue.png)|haut (on/off) : icone de l'info<br/>milieu (on/off) : icone On/Off<br/>bas (on) : le temp écoulé|
-|tagIconName|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone de remplacement de la commande|
-|iconColor|string|![Exemple](./doc/cmd.info.binary.commandIconAndValueIcon/cmdIconAndValueWithColor.png)|le code ou le nom de la couleur à appliquer (ex : "blue, "#0000FF")|
-|commandName|string (ex : Etat)||Le nom de la commande a afficher|
-|iconOn|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone a afficher la valeur est vraie.<br> (par défaut :`<i class='fas fa-circle'></i>`)|
-|iconOff|string<br>(ex :`<i class='...'></i>`)||la balise contenant l'icone a afficher la valeur est fausse.<br> (par défaut :`<i class='far fa-circle'></i>`)|
-
-Pour la version Mobile, le paramètre `timeWidget` est remplacé par `timeWidgetMobile`
+## Widget thermomètre
+Affiche un thermomètre en image avec la température à droite. Je suis parti de 3 images existantes qui était dans un widget jeedom v3 : thermometreIMG.<br/><br/>
+Dans ma version, j'ai décliné plus d'images pour être plus précis, il y en a 13.
+- [thermometer](./thermometer/README.md)  
+*Le script fonctionne pour la version dashboard et mobile.*
 
 ## Installation et affectation du widget
 
