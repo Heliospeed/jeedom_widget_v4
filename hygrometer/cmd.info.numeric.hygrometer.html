@@ -1,0 +1,134 @@
+<div class="cmd cmd-widget #history#" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+    <!--
+      Jeedom Compatibility: v4
+      Version: Dashboard/Mobile
+      Type: Info
+      SubType: Numeric
+      Name: cmd.info.numeric.hygrometer.html
+      Comment: An hygrometer image with a current value (+stats).
+      Parameters: 
+      - largeurDashboardPx - Resize the dashboard widget image to the real width - default 20px - [range 20-29px]
+      - largeurMobilePx - Resize the mobile widget image to the real width - default 20px - [range 20-29px]
+      Date: 2020-04-13
+      Source: https://github.com/Heliospeed/jeedom_widget_v4/
+      Remarks: The template and the images have been modified and come from these repositories:
+      Template : https://github.com/jeedom/core/blob/V4-stable/core/template/dashboard/cmd.info.numeric.tile.html
+      Images : widget v3 Dany21000
+  -->
+    <div class="title #hide_name#">
+      <div  class="cmdName">#name_display#</div>
+    </div>
+    <div class="content-sm">
+      <div class="pull-left">
+          <span id="hygro#id#"></span>
+      </div>
+      <div class="pull-right">
+        <div>
+          <span class="pull-right unitValue">#unite#</span>
+          <span class="pull-right state currentValue"></span>
+        </div>
+        <div class="statsPart1 #hide_history#">
+          <div class="stats"><span title='Min' class='tooltips'>Min : #minHistoryValue#</span></div>
+          <div class="stats"><span title='Max' class='tooltips'>Max : #maxHistoryValue#</span></div>
+          <div class="stats"><span title='Moyenne' class='tooltips'>Moy : #averageHistoryValue#</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="#hide_history#">
+        <div class="stats"><span title='Tendance' class='tooltips'>Tendance : <i class="#tendance#"></i></span></div>
+    </div>
+  
+    <script>
+      jeedom.cmd.update['#id#'] = function(_options){
+        
+        var cmd = $('.cmd[data-cmd_id=#id#]');
+        var imgNumber = '';
+        var taux = parseFloat(_options.display_value);
+        var hideHistory 	= ('#hide_history#'!='#'+'hide_history#') ? "#hide_history#" : "off";
+        var version = ('#version#'!='#'+'version#') ? "#version#" : "";
+        var largeurPx = "20";
+        if (version === 'dashboard'){
+          largeurPx = ('#largeurDashboardPx#'!='#'+'largeurDashboardPx#') ? "#largeurDashboardPx#" : "20";
+        }else{
+          largeurPx = ('#largeurMobilePx#'!='#'+'largeurMobilePx#') ? "#largeurMobilePx#" : "20";
+        }
+        
+        // borne Min et max largeur
+        if (largeurPx<20){
+          largeurPx = 20;
+        }else if (largeurPx>29){
+          largeurPx = 29;
+        }
+        
+        var largeurWidget = 60 + parseInt(largeurPx);
+        largeurPx = largeurPx + 'px';
+        
+        var hasCommandIcon = cmd.find('.title div.cmdName i').is('i');
+        var hasCommandName = cmd.find('.title div.cmdName').text().length > 0;
+        var pos =10;
+        if (hasCommandName || hasCommandIcon){
+          cmd.find('.title').css('cssText', 'padding-bottom: ' + pos + 'px !important;');
+          pos=0;
+        }
+        
+        if (taux >= 0 && taux < 10){
+          imgNumber = '00';
+        }else if (taux >= 10 && taux < 20) {
+          imgNumber = '01';
+        }else if (taux >= 20 && taux < 30) {
+          imgNumber = '02';
+        }else if (taux >= 30 && taux < 40) {
+          imgNumber = '03';
+        }else if (taux >= 40 && taux < 50) {
+          imgNumber = '04';
+        }else if (taux >= 50 && taux < 60) {
+          imgNumber = '05';
+        }else if (taux >= 60 && taux < 70) {
+          imgNumber = '06';
+        }else if (taux >= 70 && taux < 80) {
+          imgNumber = '07';
+        }else if (taux >= 80 && taux < 90) {
+          imgNumber = '08';
+        }else if (taux >= 90 && taux < 100) {
+          imgNumber = '09';
+        }else{
+          imgNumber = '10';
+        }
+        
+        cmd.find('#hygro#id#').empty().append('<img class="hygroImg" src="data/img/hygrometer' + imgNumber + '.png"></img>');
+        cmd.find('.hygroImg').css('cssText', 'width:' + largeurPx + ' !important;');
+        
+        var imgHeight = document.querySelector(".hygroImg").clientHeight;
+        
+        var imgMaxHeight = 93;
+        var imgMinHeight = 70;
+        
+        cmd.find('div.content-sm').css('cssText','height: ' + imgMinHeight +'px !important;min-height: ' + imgMinHeight +'px !important; max-height: ' + imgMaxHeight + 'px !important;')
+           if (imgHeight>imgMinHeight){
+          pos = (imgHeight - imgMinHeight)/2;
+        }
+        
+        cmd.attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
+        cmd.find('.state').empty().append(_options.display_value);
+          
+        var positionTop = 0;
+        if (hideHistory == 'hidden'){
+          var positionTop = 25 + pos;
+        }
+        else{
+          cmd.find('div.statsPart1').css('cssText', 'padding-top: ' + (20 + pos) + 'px !important;text-align: left !important');
+          var positionTop = pos;
+        }
+        
+        cmd.find('.stats').css('line-height', '10px');
+        
+        var cssCurrentValue = 'position: relative !important;top: ' + positionTop + 'px !important;';
+        cmd.find('.unitValue').css('cssText', cssCurrentValue );
+        cmd.find('.state').css('cssText', cssCurrentValue + 'font-size: 15px !important;');
+        cmd.find('div span.tooltips').css('cssText', 'font-size: 10px !important;font-weight: normal !important;');
+        cmd.css("padding-bottom", "15px");
+        cmd.css("width", largeurWidget + "px");
+      }
+      jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+    </script>
+  </div>

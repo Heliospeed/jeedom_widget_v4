@@ -15,6 +15,12 @@ Dans ma version, j'ai décliné plus d'images pour être plus précis, il y en a
 - [thermometer](./thermometer/README.md)  
 *Le script fonctionne pour la version dashboard et mobile.*
 
+## Widget Hygromètre
+Affiche un Hygromètre en image avec la température à droite. Je suis parti des images existantes qui était dans un widget jeedom v3 : Taux_Humidite_IMG.<br/><br/>
+Dans ma version, j'ai redimentionné les images pour être identique à celle du widget thermomètre.
+- [hygrometer](./hygrometer/README.md)  
+*Le script fonctionne pour la version dashboard et mobile.*
+
 ## Installation et affectation du widget
 
 La procédure est détaillée ici : [Procédure d'installation](./doc/InstallationProcedure.md)
