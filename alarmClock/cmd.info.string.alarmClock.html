@@ -9,7 +9,7 @@
       Parameters: 
        - ratio : the coefficient to resize the dashboard image - range [0.5 - 1.5] : default value 1
        - ratioMobile : the coefficient to resize the mobile image - range [0.5 - 1.5] : default value 0.75
-      Date: 2020-04-13
+      Date: 2020-04-14
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks: I reuse the images from an old v3 widget (alarm-clock) - author : ?
   -->
@@ -60,15 +60,15 @@
 
         var wakingDate = new Date(y1+y2+y3+y4, m1+m2, d1+d2, h1+h2, i1+i2, '00').getTime()/1000;
         var now = new Date().getTime()/1000;
-
         var gapHourBeforeRinging = Math.round((wakingDate-now)/(60*60*60));
+
         if(isNaN(gapHourBeforeRinging)){
           // Alarme en erreur
           h1='x';
           h2='x';
           i1='x';
           i2='x';
-        } else if (gapHourBeforeRinging < 0 && gapHourBeforeRinging > 24) {
+        } else if (gapHourBeforeRinging < 0 || gapHourBeforeRinging > 24) {
           // Alarme non active dans les 24h
           h1='-';
           h2='-';
