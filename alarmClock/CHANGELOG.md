@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.3] - 2020-04-19
+Correction d'un bug sur le calcul de l'heure d'activation.
+### Modification :
+- cmd.info.string.alarmClock.html
+
 ## [1.2] - 2020-04-18
 Correction d'un bug sur le calcul de l'heure d'activation.
 ### Modification :
