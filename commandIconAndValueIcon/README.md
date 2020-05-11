@@ -8,6 +8,16 @@ Voici ce que donne cela donne en image
 - [Dashboard : commandIconAndValueIcon](./cmd.info.binary.commandIconAndValueIcon.html)
 - [Mobile : commandIconAndValueIcon](./cmd.info.binary.commandIconAndValueIcon_Mobile.html)
 
+
+ou créer un nouveau script ayant les caractéristique suivante :
+|Nom|Valeur|
+|-|-|
+|Version|Dashboard ou Mobile|
+|Type|Info|
+|Sous-type|Binaire|
+|Nom|CommandIconAndValueIcon (par exemple)|
+et recopier le contenu du fichier.
+
 ## Les paramètres (tous optionnels)
 
 |Parametre|version|valeur|Aperçu|Description|

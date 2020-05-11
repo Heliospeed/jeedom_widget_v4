@@ -7,7 +7,22 @@ Voici ce que donne cela donne en image
 ## Le script
 - [Dashboard/Mobile : thermometer](./cmd.info.numeric.thermometer.html)
 
-## Les images
+## Installation
+
+### Copier le script
+Recopier le script dans le répertoire `	/var/www/html/data/customTemplates/dashboard/cmd.info.numeric.thermometer.html`  
+Pour la version mobile remplacer dashboard par mobile.
+
+ou créer un nouveau script ayant les caractéristique suivante :
+|Nom|Valeur|
+|-|-|
+|Version|Dashboard ou Mobile|
+|Type|Info|
+|Sous-type|Numérique|
+|Nom|Thermometer (par exemple)|
+et recopier le contenu du fichier `cmd.info.numeric.thermometer.html`
+
+### Copier les images
 Il faut recopier les images dans `/var/www/html/data/img` soit en les copiants sur le serveur, ou en utilisant l'interface.
 
 |Plage d'hygrométrie %|  <0&nbsp;&nbsp;&nbsp;|>00 et <=05|>05 et <=10|>10 et <=13|>13 et <=16|>16 et <=18|>18 et <=20|>20 et <=22|>22 et <=24|>24 et <=26|>26 et <=28|>28 et <=34|  >34&nbsp;|

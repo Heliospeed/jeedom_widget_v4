@@ -9,6 +9,23 @@ Voici ce que donne cela donne en image
 ## Le script
 - [Dashboard/Mobile : alarmClock](./cmd.info.string.alarmClock.html)
 
+## Installation
+
+### Copier le script
+Recopier le script dans le répertoire `	/var/www/html/data/customTemplates/dashboard/cmd.info.string.alarmClock.html`  
+Pour la version mobile remplacer dashboard par mobile.
+
+ou créer un nouveau script ayant les caractéristique suivante :
+|Nom|Valeur|
+|-|-|
+|Version|Dashboard ou Mobile|
+|Type|Info|
+|Sous-type|Autre|
+|Nom|Hygrometer (par exemple)|
+et recopier le contenu du fichier `cmd.info.string.alarmClock.html`
+
+### Copier les images
+
 ## Les images
 Il faut recopier les images dans `/var/www/html/data/img` soit en les copiants sur le serveur, ou en utilisant l'interface.
 
