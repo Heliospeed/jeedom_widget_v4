@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.2] - 2020-08-27
+Adaptation de la largeur du widget pour être compatible dans les designs.
+### Modification :
+- cmd.info.numeric.thermometer.html
+
 ## [1.1] - 2020-05-01
 La température courante est affichée avec un seul chiffre après la virgule.
 ### Modification :
