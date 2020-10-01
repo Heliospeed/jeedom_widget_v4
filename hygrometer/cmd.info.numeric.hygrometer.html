@@ -9,7 +9,7 @@
       Parameters: 
       - largeurDashboardPx - Resize the dashboard widget image to the real width - default 20px - [range 20-29px]
       - largeurMobilePx - Resize the mobile widget image to the real width - default 20px - [range 20-29px]
-      Date: 2020-08-27
+      Date: 2020-10-01
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks: The template and the images have been modified and come from these repositories:
       Template : https://github.com/jeedom/core/blob/V4-stable/core/template/dashboard/cmd.info.numeric.tile.html
@@ -60,7 +60,7 @@
           largeurPx = 29;
         }
         
-        var largeurWidget = 70 + parseInt(largeurPx);
+        var largeurWidget = 80 + parseInt(largeurPx);
         largeurPx = largeurPx + 'px';
         
         var hasCommandIcon = cmd.find('.title div.cmdName i').is('i');

@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.3] - 2020-10-01
+Adaptation de la largeur du widget lorsqu'il y a des températures négatives.
+### Modification :
+- cmd.info.numeric.thermometer.html
+
 ## [1.2] - 2020-08-27
 Adaptation de la largeur du widget pour être compatible dans les designs.
 ### Modification :
