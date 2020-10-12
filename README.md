@@ -22,10 +22,15 @@ Dans ma version, j'ai redimentionné les images pour être identique à celle du
 *Le script fonctionne pour la version dashboard et mobile.*
 
 ## Widget réveil
-Affiche un réveil en image avec l'heure programmé (si elle est prévue dans les 24 prochaines heures). Je suis parti des images existantes qui était dnas un widget jeedom v3 : alarm-clock.<br/><br/>
+Affiche un réveil en image avec l'heure programmé (si elle est prévue dans les 24 prochaines heures). Je suis parti des images existantes qui était dans un widget jeedom v3 : alarm-clock.<br/><br/>
 - [alarmClock](./alarmClock/README.md)  
 *Le script fonctionne pour la version dashboard et mobile.*
 
-## Installation et affectation du widget
+## Widget Danfoss Living Connect
+Affiche la tête Danfoss Living Connect (et permet de la piloter). Je suis parti des images existantes qui était dans un widget jeedom v3 : DanfossIMG.<br/><br/>
+- [danfossLivingConnect](./danfossLivingConnect/README.md)  
+*Le script fonctionne pour la version dashboard et mobile.*
+
+## Installation et affectation d'un widget
 
 La procédure est détaillée ici : [Procédure d'installation](./doc/InstallationProcedure.md)

@@ -1,0 +1,333 @@
+<div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-template="button" data-cmd_id="#id#"
+  data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+  <!--
+      Jeedom Compatibility: v4
+      Version: Dashboard/Mobile
+      Type: Info
+      SubType: Numeric
+      Name: cmd.info.numeric.hygrometer.html
+      Comment: Displays and allows modification of the Danfoss LC-13 setpoint
+      Parameters: N/A
+      Date: 2020-10-12
+      Source: https://github.com/Heliospeed/jeedom_widget_v4/
+      Remarks:
+      - I reuse the images and font from an old v3 widget (DanfossIMG) - author : ?
+      - It is necessary to activate the "default" widgets (battery, setpoint and setpoint pending).
+  -->
+  <img src="data/customTemplates/dashboard/cmd.action.slider.danfossLivingConnect/Danfoss.png">
+  <div class="state_danfoss state_#version#_danfoss consigne value"></div>
+  <div class="statedec_danfoss statedec_#version#_danfoss consigne value"></div>
+  <div class="unite_danfoss unite_#version#_danfoss value">#unite#</div>
+  <div class="btn_ctrl_danfoss minus_danfoss minus_#version#_danfoss"></div>
+  <div class="btn_ctrl_danfoss plus_danfoss plus_#version#_danfoss"></div>
+  <div class="btn_switch_danfoss switch_#version#_danfoss"></div>
+  <input type="hidden" class="switch#id#"></input>
+  <style>
+    @font-face {
+      font-family: "Digital-7";
+      src: url('data/customTemplates/dashboard/cmd.action.slider.danfossLivingConnect/digital-7-italic.ttf') format("truetype");
+    }
+
+    .state_danfoss {
+      font-family: "Digital-7";
+      font-size: 23px;
+      color: #323232;
+      position: absolute;
+      letter-spacing: 1px;
+    }
+
+    .state_dashboard_danfoss {
+      top: 35px;
+      right: 3px;
+    }
+
+    .state_mobile_danfoss {
+      top: 54px;
+    }
+
+    .statedec_danfoss {
+      font-family: "Digital-7";
+      font-size: 12px;
+      color: #323232;
+      position: absolute;
+    }
+
+    .statedec_dashboard_danfoss {
+      top: 38px;
+      right: -9px;
+    }
+
+    .statedec_mobile_danfoss {
+      top: 65px;
+    }
+
+    .unite_danfoss {
+      font-family: "Digital-7";
+      font-size: 8px;
+      color: #323232;
+      position: absolute;
+    }
+
+    .unite_dashboard_danfoss {
+      top: 29px;
+      right: -11px;
+    }
+
+    .unite_mobile_danfoss {
+      top: 58px;
+    }
+
+    .btn_ctrl_danfoss {
+      position: absolute;
+      cursor: pointer;
+      width: 14px;
+      height: 21px;
+    }
+
+    .minus_dashboard_danfoss {
+      top: 30px;
+      right: 64px;
+    }
+
+    .minus_mobile_danfoss {
+      top: 58px;
+    }
+
+    .plus_dashboard_danfoss {
+      top: 30px;
+      right: 2px;
+    }
+
+    .plus_mobile_danfoss {
+      top: 58px;
+    }
+
+    .btn_switch_danfoss {
+      position: absolute;
+      cursor: pointer;
+      width: 21px;
+      height: 17px;
+    }
+
+    .switch_dashboard_danfoss {
+      top: 64px;
+      right: 30px;
+    }
+
+    .switch_mobile_danfoss {
+      top: 93px;
+    }
+  </style>
+  <script>
+    var consigne_pending_cdeName = 'Consigne pending';
+    var consigne_cdeName = 'Consigne';
+    var battery_cdeName = 'Batterie';
+    var switch_mode_consigne = 'consigne';
+    var switch_mode_battery = 'battery';
+
+    function getWidgetInfoNumericDefault(cmdWidgetId, cmdName) {
+      let widget = null;
+      $('.cmd[data-cmd_id=' + cmdWidgetId + ']').parent().find('.cmdName').each(function (index) { if ($(this).text() === cmdName) { widget = $(this).closest('.cmd-widget'); } });
+
+      return widget;
+    }
+
+    function hideWidget(cmdWidgetId, cmdName) {
+      getWidgetInfoNumericDefault(cmdWidgetId, cmdName).hide();
+    }
+
+    function getWidgetInfoNumericDefaultValue(cmdWidgetId, cmdName) {
+      let widget = getWidgetInfoNumericDefault(cmdWidgetId, cmdName);
+      let find = '';
+
+      if ('#version#' === 'dashboard') {
+        find = 'div.content-sm span span:first';
+      }
+      else {
+        find = '.state:first';
+      }
+
+      return widget.find(find).text();
+    }
+
+    function setWidgetInfoNumericDefaultValue(cmdWidgetId, cmdName, value) {
+      let widget = getWidgetInfoNumericDefault(cmdWidgetId, cmdName);
+      let find = '';
+
+      if ('#version#' === 'dashboard') {
+        find = 'div.content-sm span span:first';
+      }
+      else {
+        find = '.state:first';
+      }
+
+      widget.find(find).text(value);
+    }
+
+    function getDanfossConsignePendingValue(cmdWidgetId) {
+      let pending = getWidgetInfoNumericDefaultValue(cmdWidgetId, consigne_pending_cdeName);
+
+      if (isNaN(parseFloat(pending))) {
+        pending = -2;
+      }
+
+      return parseFloat(pending);
+    }
+
+    function setDanfossConsignePendingValue(cmdWidgetId, pendingValue) {
+      setWidgetInfoNumericDefaultValue(cmdWidgetId, consigne_pending_cdeName, pendingValue.toFixed(1))
+    }
+
+    function getDanfossConsigneValue(cmdWidgetId) {
+      let consigne = getWidgetInfoNumericDefaultValue(cmdWidgetId, consigne_cdeName);
+      if (isNaN(parseFloat(consigne))) {
+        consigne = -1;
+      }
+
+      return parseFloat(consigne);
+    }
+
+    function getDanfossBatteryValue(cmdWidgetId) {
+      let percent = getWidgetInfoNumericDefaultValue(cmdWidgetId, battery_cdeName);
+      if (isNaN(parseFloat(percent))) {
+        consigne = -3;
+      }
+
+      return parseFloat(percent);
+    }
+
+    function getDanfossValueDisplay(cmdWidgetId) {
+      var consigne = getDanfossConsigneValue(cmdWidgetId);
+      var consignePending = getDanfossConsignePendingValue(cmdWidgetId);
+
+      var showValue = consigne;
+      if (consigne !== consignePending) {
+
+        showValue = consignePending;
+      }
+
+      return showValue;
+    }
+
+    function setDanfossValue(cmdWidgetId, danfossVal, mode) {
+      var valeur = parseFloat(danfossVal);
+      var intNum = Math.floor(valeur);
+      var decNum = Math.round((valeur - intNum) * 10);
+
+      var cmd = $('.cmd[data-cmd_id=' + cmdWidgetId + ']');
+      cmd.find('.state_danfoss').text(intNum);
+
+      if (decNum !== 0) {
+        cmd.find('.statedec_danfoss').text('.' + decNum);
+      }
+      else {
+        cmd.find('.statedec_danfoss').text('');
+      }
+
+      if (mode === '' || mode === switch_mode_consigne) {
+        cmd.find('.unite_danfoss').text('#unite#');
+      }
+      else if (mode === switch_mode_battery) {
+        cmd.find('.unite_danfoss').text('%');
+      }
+    }
+
+    $('.cmd[data-cmd_uid=#uid#] .plus_danfoss').on('click', function () {
+      var max = ('#maxValue#' == '') ? Number.MAX_VALUE : parseFloat('#maxValue#');
+      var step = (isNaN(parseFloat('#step#'))) ? 0.5 : parseFloat('#step#');
+
+      var danfossValue = getDanfossValueDisplay('#id#');
+
+      if (parseFloat(danfossValue) <= max - step) {
+        setDanfossValue('#id#', parseFloat(danfossValue) + step, switch_mode_consigne);
+        setDanfossConsignePendingValue('#id#', parseFloat(danfossValue) + step)
+
+        jeedom.cmd.update['#id#']({ display_value: (parseFloat(danfossValue) + step) });
+
+        var cmd = $('.cmd[data-cmd_id=#id#]');
+        $('.cmd[data-cmd_uid=#uid#] .consigne').trigger('change');
+      }
+    });
+
+    $('.cmd[data-cmd_uid=#uid#] .minus_danfoss').on('click', function () {
+      var min = ('#minValue#' == '') ? Number.MIN_VALUE : parseFloat('#minValue#');
+      var step = (isNaN(parseFloat('#step#'))) ? 0.5 : parseFloat('#step#');
+
+      var danfossValue = getDanfossValueDisplay('#id#');
+
+      if (parseFloat(danfossValue) >= min + step) {
+        jeedom.cmd.update['#id#']({ display_value: (parseFloat(danfossValue) - step) });
+
+        setDanfossValue('#id#', parseFloat(danfossValue) - step, switch_mode_consigne);
+        setDanfossConsignePendingValue('#id#', parseFloat(danfossValue) - step);
+
+        var cmd = $('.cmd[data-cmd_id=#id#]');
+        $('.cmd[data-cmd_uid=#uid#] .consigne').trigger('change');
+      }
+    });
+
+    $('.cmd[data-cmd_uid=#uid#] .consigne').on('change', function () {
+      if (typeof timerHandle#uid# !== 'undefined') {
+      clearTimeout(timerHandle#uid#);
+    }
+
+    timerHandle#uid# = setTimeout(function () {
+      jeedom.cmd.execute({ id: '#id#', value: { slider: getDanfossValueDisplay('#id#') } });
+    }, 1000)
+    });
+
+    $('.cmd[data-cmd_uid=#uid#] .btn_switch_danfoss').on('click', function () {
+      let switchMode = $('.cmd[data-cmd_uid=#uid#]').find('.switch#id#');
+      let value = -4;
+
+      if (switchMode.text() === "" || switchMode.text() === switch_mode_consigne) {
+        switchMode.text(switch_mode_battery);
+        value = getDanfossBatteryValue('#id#');
+      }
+      else if (switchMode.text() === switch_mode_battery) {
+        switchMode.text(switch_mode_consigne);
+        value = getDanfossValueDisplay('#id#');
+      }
+
+      setDanfossValue('#id#', value, switchMode.text());
+    });
+
+    jeedom.cmd.update['#id#'] = function (_options) {
+      var valeur = parseFloat(_options.display_value).toFixed(1);
+      var cmd = $('.cmd[data-cmd_id=#id#]');
+      cmd.parent().find('div.danfossDetail:first .consigneValue').text(valeur);
+      cmd.css("top", "-30px");
+      setDanfossValue('#id#', getDanfossValueDisplay('#id#'), switch_mode_consigne);
+    }
+
+    jeedom.cmd.update['#id#']({ display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#' });
+
+    function mobileCssPosition(widgetUid) {
+
+      var divInt = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.state_danfoss');
+      var divIntWidth = parseFloat(divInt.width());
+      var widgetWidth = parseFloat(divInt.parent().width());
+      divInt.css('right', String(((widgetWidth / 2) - (divIntWidth / 2) + (divIntWidth / 4) - 3).toFixed(0)) + 'px');
+      var divDec = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.statedec_danfoss');
+      divDec.css('right', (parseFloat(divInt.css('right').replace('px', '')) - 13) + 'px');
+      var divUnit = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.unite_danfoss');
+      divUnit.css('right', (parseFloat(divInt.css('right').replace('px', '')) - 13) + 'px');
+      var divMinus = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.minus_mobile_danfoss');
+      divMinus.css('right', String((widgetWidth / 2) + 40 - divMinus.width()) + 'px');
+      var divPlus = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.plus_mobile_danfoss');
+      divPlus.css('right', String(parseFloat(divInt.css('right').replace('px', '')) - divPlus.width()) + 'px');
+      var divSwitch = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.switch_mobile_danfoss');
+      divSwitch.css('right', (widgetWidth / 2) - 5 + 'px');
+    }
+
+    setTimeout(function () {
+      hideWidget('#id#', consigne_cdeName);
+      hideWidget('#id#', consigne_pending_cdeName);
+      hideWidget('#id#', battery_cdeName);
+
+      if ('#version#' === 'mobile') {
+        mobileCssPosition('#uid#');
+      }
+    }, 100)
+  </script>
+</div>
