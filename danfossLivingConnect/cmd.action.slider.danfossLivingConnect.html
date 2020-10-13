@@ -8,7 +8,7 @@
       Name: cmd.info.numeric.hygrometer.html
       Comment: Displays and allows modification of the Danfoss LC-13 setpoint
       Parameters: N/A
-      Date: 2020-10-12
+      Date: 2020-10-13
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks:
       - I reuse the images and font from an old v3 widget (DanfossIMG) - author : ?
@@ -296,7 +296,7 @@
       var valeur = parseFloat(_options.display_value).toFixed(1);
       var cmd = $('.cmd[data-cmd_id=#id#]');
       cmd.parent().find('div.danfossDetail:first .consigneValue').text(valeur);
-      cmd.css("top", "-30px");
+      cmd.css("top", "-55px");
       setDanfossValue('#id#', getDanfossValueDisplay('#id#'), switch_mode_consigne);
     }
 
