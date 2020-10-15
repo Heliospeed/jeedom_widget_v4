@@ -16,6 +16,11 @@ Recopier le répertoire `cmd.action.slider.danfossLivingConnect` (et son contenu
 
 Pour la version mobile recopier uniquement le script dans le répertoire mobile `/var/www/html/data/customTemplates/mobile/cmd.action.slider.danfossLivingConnect.html`
 Les images et polices sont récupérer du dashboard.
+Il est possible de faire un lien symbolique pour ne pas avoir a recopier le fichier.
+ Commande pour créer le lien :
+ `sudo ln -s /var/www/html/data/customTemplates/dashboard/cmd.action.slider.danfossLivingConnect.html /var/www/html/data/customTemplates/mobile/cmd.action.slider.danfossLivingConnect.html`
+Commande pour changer le propriétaire du lien (comme les autres fichiers) :
+ `sudo chown -h www-data:www-data /var/www/html/data/customTemplates/mobile/cmd.action.slider.danfossLivingConnect.html`
 
 ou créer un nouveau script ayant les caractéristique suivante :
 |Nom|Valeur|
@@ -30,6 +35,8 @@ et recopier le contenu du fichier `cmd.info.numeric.hygrometer.html`
 
 Il faut appliquer le widget `danfossLivingConnect` sur la commande `Commande` de type Action.
 
+
+
 Pour que le widget fonctionne, il faut impérativement afficher et appliquer le widget `Default` sur les commandes suivantes :
 - Consigne
 - Consigne Pending
@@ -39,4 +46,12 @@ Attention, les commandes (Consigne, consigne pending et Batterie) doivent être 
 
 Il faut glisser les lignes des commandes et enregistrer l'objet.
 
-![](../doc/danfossLivingConnect/danfossLivingConnect_Commandes.png)
+Voici un exemple d'ordre qui fonctionne :
+![](../doc/danfossLivingConnect/danfossLivingConnect_Commands.png)
+
+Pour les 3 premières commandes (qui seront masqué par le widget mais nécessaire pour récupérer les valeurs), il faut applique le plugin Défaut et cocher afficher le nom et surtout décocher les retours à la ligne forcé:
+![](../doc/danfossLivingConnect/danfossLivingConnect_HideCommands.png)
+
+Pour la ligne correspondant à la commande, il faut juste sélectionner le widget :
+![](../doc/danfossLivingConnect/danfossLivingConnect_PluginCommand.png)
+
