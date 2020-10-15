@@ -1,6 +1,16 @@
 # Changelog
 Liste des modifications
 
+## [1.2] - 2020-10-16
+Fix nom des images
+### Modification :
+- cmd.action.slider.danfossLivingConnect.html
+- danfoss_buttons.png
+- danfoss_down.png
+- danfoss_minus.png
+- danfoss_plus.png
+- danfoss.png
+
 ## [1.1] - 2020-10-15
 Fix hauteur widget + mise en évidence des boutons
 ### Ajout :
