@@ -9,7 +9,7 @@
     Parameters: 
     - largeurDashboardPx - Resize the dashboard widget image to the real width - default 20px - [range 20-29px]
     - largeurMobilePx - Resize the mobile widget image to the real width - default 20px - [range 20-29px]
-    Date: 2020-10-01
+    Date: 2020-12-22
     Source: https://github.com/Heliospeed/jeedom_widget_v4/
     Remarks: The template and the images have been modified and come from these repositories:
     Template : https://github.com/jeedom/core/blob/V4-stable/core/template/dashboard/cmd.info.numeric.tile.html
@@ -19,10 +19,10 @@
     <div  class="cmdName">#name_display#</div>
   </div>
   <div class="content-sm">
-    <div class="pull-left">
+    <div class="pull-left img">
     	<span id="thermo#id#"></span>
     </div>
-    <div class="pull-right">
+    <div class="pull-right val">
       <div>
         <span class="pull-right unitValue">#unite#</span>
         <span class="pull-right state currentValue"></span>
@@ -61,6 +61,7 @@
       }
       
       var largeurWidget = 80 + parseInt(largeurPx);
+      var hauteurPx = (largeurPx * 64 / 20);
       largeurPx = largeurPx + 'px';
       
       var hasCommandIcon = cmd.find('.title div.cmdName i').is('i');
@@ -102,14 +103,12 @@
       cmd.find('#thermo#id#').empty().append('<img class="thermoImg" src="data/img/thermometer' + imgNumber + '.png"></img>');
       cmd.find('.thermoImg').css('cssText', 'width:' + largeurPx + ' !important;');
       
-      var imgHeight = document.querySelector(".thermoImg").clientHeight;
-      
       var imgMaxHeight = 93;
       var imgMinHeight = 70;
       
       cmd.find('div.content-sm').css('cssText','height: ' + imgMinHeight +'px !important;min-height: ' + imgMinHeight +'px !important; max-height: ' + imgMaxHeight + 'px !important;')
-   	  if (imgHeight>imgMinHeight){
-        pos = (imgHeight - imgMinHeight)/2;
+   	  if (hauteurPx>imgMinHeight){
+        pos = (hauteurPx - imgMinHeight)/2;
       }
       
       cmd.attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
@@ -132,6 +131,10 @@
       cmd.find('div span.tooltips').css('cssText', 'font-size: 10px !important;font-weight: normal !important;');
       cmd.css("padding-bottom", "15px");
       cmd.css("width", largeurWidget + "px");
+      cmd.find('.img').css('height', hauteurPx + 'px');
+      cmd.find('.img').css('width', largeurPx);
+      cmd.find('.val').css('height', hauteurPx + 'px');
+      cmd.find('.val').css('width', '59px');
     }
     jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
   </script>

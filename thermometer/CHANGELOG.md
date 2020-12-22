@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.4] - 2020-12-22
+Force manuellement la hauteur du widget si l'image n'est pas encore chargée
+### Modification :
+- cmd.info.numeric.thermometer.html
+
 ## [1.3] - 2020-10-01
 Adaptation de la largeur du widget lorsqu'il y a des températures négatives.
 ### Modification :

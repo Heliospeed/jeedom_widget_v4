@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.2] - 2020-12-22
+Force manuellement la hauteur du widget si l'image n'est pas encore chargée
+### Modification :
+- cmd.info.numeric.hygrometer.html
+
 ## [1.2] - 2020-10-01
 Normalisation de la largeur du widget avec celle du thermomètre.
 ### Modification :
