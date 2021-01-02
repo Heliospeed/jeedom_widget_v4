@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.3] - 2020-12-31
+Correction bug
+### Modification :
+- cmd.action.slider.danfossLivingConnect.html
+
 ## [1.2] - 2020-10-16
 Fix nom des images
 ### Modification :
