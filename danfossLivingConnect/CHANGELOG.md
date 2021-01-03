@@ -1,7 +1,7 @@
 # Changelog
 Liste des modifications
 
-## [1.4] - 2021-01-03
+## [1.4.1] - 2021-01-03
 Lorsqu'il y a une consigne en attente, elle est affichée en rouge
 ### Modification :
 - cmd.action.slider.danfossLivingConnect.html

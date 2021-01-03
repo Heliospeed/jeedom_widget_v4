@@ -8,7 +8,7 @@
       Name: cmd.info.numeric.hygrometer.html
       Comment: Displays and allows modification of the Danfoss LC-13 setpoint
       Parameters: N/A
-      Date: 2021-01-03
+      Date: 2021-01-03 v1.4.1
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks:
       - I reuse the images and font from an old v3 widget (DanfossIMG) - author : ?
@@ -17,7 +17,7 @@
   -->
   <!--<img src="data/customTemplates/dashboard/cmd.action.slider.danfossLivingConnect/Danfoss.png">-->
   <div class="danfossImg #version#_danfossImg"></div>
-  <div class="state_danfoss state_#version#_danfoss consigne value"></div>
+  <div class="state_danfoss state_#version#_danfoss state_color_font_default consigne value"></div>
   <div class="statedec_danfoss statedec_#version#_danfoss state_color_font_default consigne value"></div>
   <div class="unite_danfoss unite_#version#_danfoss state_color_font_default value">#unite#</div>
   <div class="btn_ctrl_danfoss minus_danfoss minus_#version#_danfoss"></div>
@@ -69,7 +69,6 @@
     .state_danfoss {
       font-family: "Digital-7";
       font-size: 23px;
-      /*color: #323232;*/
       position: absolute;
       letter-spacing: 1px;
     }
@@ -79,7 +78,7 @@
     }
 
     .state_color_font_pending{
-      color: #ff3000;
+      color: #bb3434;
     }
 
     .state_dashboard_danfoss {
@@ -94,7 +93,6 @@
     .statedec_danfoss {
       font-family: "Digital-7";
       font-size: 12px;
-      /*color: #323232;*/
       position: absolute;
     }
 
@@ -110,7 +108,6 @@
     .unite_danfoss {
       font-family: "Digital-7";
       font-size: 8px;
-      color: #323232;
       position: absolute;
     }
 
