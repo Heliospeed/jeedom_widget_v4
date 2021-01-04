@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.5] - 2020-01-04
+N'affiche pas de décimal lorsque c'est un entier.
+### Modification :
+- cmd.info.numeric.thermometer.html
+
 ## [1.4] - 2020-12-22
 Force manuellement la hauteur du widget si l'image n'est pas encore chargée
 ### Modification :
