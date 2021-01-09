@@ -14,7 +14,9 @@ Selectionner les paramètres correspondant au type de widget par exemple -> Dash
 Dans l'écran suivant, recopier le code et cliquer sur sauvegarder :  
  ![Edition du code](./images/WidgetsCodeEdit.png)
 
-L'installation est terminée
+L'installation est terminée.
+
+Remarque, il est aussi possible de copier directement les fichiers sur le serveur Jeedom (en ligne de commandes ou en utilisant un plugin)
 
 ## Affectation d'un widget
 

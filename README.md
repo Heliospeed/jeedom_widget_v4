@@ -7,7 +7,7 @@ Je me suis donc décidé à customiser un widget, puis second (en m'appuyant sur
 ## Widget d'info binaire contenant l'icone de l'info et sa valeur
 Afficher l'icône de la commande et en dessous un icône on/off.  
 - [commandIconAndValueIcon](./commandIconAndValueIcon/README.md)  
-*Pour le moment j'ai 2 scripts (dashboard/mobile) mais je vais prochainement les fusionnés.*
+*Le script fonctionne pour la version dashboard et mobile.*
 
 ## Widget thermomètre
 Affiche un thermomètre en image avec la température à droite. Je suis parti de 3 images existantes qui était dans un widget jeedom v3 : thermometreIMG.<br/><br/>

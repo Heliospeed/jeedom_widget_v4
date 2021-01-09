@@ -4,12 +4,20 @@ Widget permettant d'afficher l'icône de la commande et en dessous un icône on/
 Voici ce que donne cela donne en image
 ![Exemple](../doc/commandIconAndValueIcon/cmdIconAndValue_Example.png)
 
-## Les scripts 
-- [Dashboard : commandIconAndValueIcon](./cmd.info.binary.commandIconAndValueIcon.html)
-- [Mobile : commandIconAndValueIcon](./cmd.info.binary.commandIconAndValueIcon_Mobile.html)
+## Le script
+- [Dashboard/Mobile : commandIconAndValueIcon](./cmd.info.binary.commandIconAndValueIcon.html)
+
+## Installation
+Recopier le script dans les répertoires `/var/www/html/data/customTemplates/dashboard/` et `/var/www/html/data/customTemplates/mobile/`
+
+Remarque pour la version mobile, il est possible de faire un lien symbolique pointant vers la version sahboard pour éviter de déployer 2 fois la même version :<br/>
+Dans ce cas on copie juste le script dans le répertoire : `/var/www/html/data/customTemplates/dashboard/`<br/>
+ Commande pour créer le lien : `sudo ln -s /var/www/html/data/customTemplates/dashboard/cmd.info.binary.commandIconAndValueIcon.html /var/www/html/data/customTemplates/mobile/cmd.info.binary.commandIconAndValueIcon.html`<br/>
+Commande pour changer le propriétaire du lien (comme les autres fichiers) :
+`sudo chown -h www-data:www-data /var/www/html/data/customTemplates/mobile/cmd.info.binary.commandIconAndValueIcon.html`
 
 
-ou créer un nouveau script ayant les caractéristique suivante :
+ou créer manuellement un nouveau script ayant les caractéristique suivante :
 |Nom|Valeur|
 |-|-|
 |Version|Dashboard ou Mobile|

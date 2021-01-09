@@ -1,6 +1,14 @@
 # Changelog
 Liste des modifications
 
+## [1.5] - 2021-01-09
+Fusion de la version bashboard et mobile
+### Modification :
+- cmd.info.binary.commandIconAndValueIcon.html
+- documentation
+### Suppression :
+- cmd.info.binary.commandIconAndValueIcon_Mobile.html
+
 ## [1.4] - 2020-04-11
 Ajout de la version mobile + uniformisation code
 ### Modification :
