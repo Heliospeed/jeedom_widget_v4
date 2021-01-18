@@ -5,17 +5,17 @@
       Version: Dashboard/Mobile
       Type: Info
       SubType: Numeric
-      Name: cmd.info.numeric.hygrometer.html
+      Name: cmd.action.slider.danfossLivingConnect.html
       Comment: Displays and allows modification of the Danfoss LC-13 setpoint
       Parameters: N/A
-      Date: 2021-01-03 v1.4.1
+      Date: 2021-01-18 v1.5
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks:
       - I reuse the images and font from an old v3 widget (DanfossIMG) - author : ?
       - The image highlighting buttons made by naboleo
       - It is necessary to activate the "default" widgets (battery, setpoint and setpoint pending).
   -->
-  <!--<img src="data/customTemplates/dashboard/cmd.action.slider.danfossLivingConnect/Danfoss.png">-->
+  
   <div class="danfossImg #version#_danfossImg"></div>
   <div class="state_danfoss state_#version#_danfoss state_color_font_default consigne value"></div>
   <div class="statedec_danfoss statedec_#version#_danfoss state_color_font_default consigne value"></div>
@@ -167,6 +167,7 @@
     var battery_cdeName = 'Batterie';
     var switch_mode_consigne = 'consigne';
     var switch_mode_battery = 'battery';
+    var jeedomVesion;
 
     function getWidgetInfoNumericDefault(cmdWidgetId, cmdName) {
       let widget = null;
@@ -187,12 +188,18 @@
       let find = '';
 
       if ('#version#' === 'dashboard') {
-        find = 'div.content-sm span span:first';
+		if (isEarlierVersion('4.2.0')){
+			find = 'div.content-sm span span:first';
+		}
+		else {
+          find = 'div.value div.state strong:first'
+        }										 
       }
       else {
         find = '.state:first';
       }
 
+													  
       return widget.find(find).text();
     }
 
@@ -201,7 +208,12 @@
       let find = '';
 
       if ('#version#' === 'dashboard') {
-        find = 'div.content-sm span span:first';
+        if (isEarlierVersion('4.2.0')){
+          find = 'div.content-sm span span:first';
+        }
+        else {
+          find = 'div.value div.state strong:first'
+        }
       }
       else {
         find = '.state:first';
@@ -210,7 +222,7 @@
       widget.find(find).text(value);
     }
 
-    function getDanfossConsignePendingValue(cmdWidgetId) {
+    function getDanfossConsignePendingValue(cmdWidgetId) {											 
       let pending = getWidgetInfoNumericDefaultValue(cmdWidgetId, consigne_pending_cdeName);
 
       if (isNaN(parseFloat(pending))) {
@@ -267,6 +279,19 @@
       }
 
       return showValue;
+    }
+
+    function getJeedomVersion(){
+      return $('#bt_jeedomAbout').text().split(' ')[2];
+    }
+
+    function isEarlierVersion(compareVersion){
+      var compare = parseInt(compareVersion.replaceAll('.',''));
+      if (typeof jeedomVesion === 'undefined') {
+        jeedomVesion = parseInt(getJeedomVersion().replaceAll('.',''));
+      }
+
+      return jeedomVesion<compare;
     }
 
     function setDanfossValue(cmdWidgetId, danfossVal, mode) {
