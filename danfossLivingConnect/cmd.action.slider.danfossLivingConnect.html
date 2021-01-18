@@ -15,7 +15,7 @@
       - The image highlighting buttons made by naboleo
       - It is necessary to activate the "default" widgets (battery, setpoint and setpoint pending).
   -->
-  
+
   <div class="danfossImg #version#_danfossImg"></div>
   <div class="state_danfoss state_#version#_danfoss state_color_font_default consigne value"></div>
   <div class="statedec_danfoss statedec_#version#_danfoss state_color_font_default consigne value"></div>
@@ -167,7 +167,6 @@
     var battery_cdeName = 'Batterie';
     var switch_mode_consigne = 'consigne';
     var switch_mode_battery = 'battery';
-    var jeedomVesion;
 
     function getWidgetInfoNumericDefault(cmdWidgetId, cmdName) {
       let widget = null;
@@ -188,11 +187,11 @@
       let find = '';
 
       if ('#version#' === 'dashboard') {
-		if (isEarlierVersion('4.2.0')){
-			find = 'div.content-sm span span:first';
-		}
-		else {
-          find = 'div.value div.state strong:first'
+        if (!isEarlierVersion('4.2.0')){
+          find = 'div.content-sm span span:first';
+        }
+        else {
+          find = 'div.value div.state strong:first';
         }										 
       }
       else {
@@ -208,7 +207,7 @@
       let find = '';
 
       if ('#version#' === 'dashboard') {
-        if (isEarlierVersion('4.2.0')){
+        if (!isEarlierVersion('4.2.0')){
           find = 'div.content-sm span span:first';
         }
         else {
@@ -286,12 +285,26 @@
     }
 
     function isEarlierVersion(compareVersion){
-      var compare = parseInt(compareVersion.replaceAll('.',''));
-      if (typeof jeedomVesion === 'undefined') {
-        jeedomVesion = parseInt(getJeedomVersion().replaceAll('.',''));
+      var jeedomVesion = getJeedomVersion();
+      if (jeedomVesion === compareVersion) {
+        return true;
       }
 
-      return jeedomVesion<compare;
+      var tabJeedomVesion = jeedomVesion.split(".");
+      var tabCompareVersion = compareVersion.split(".");
+      var minLen = Math.min(tabJeedomVesion.length, tabCompareVersion.length);
+
+      for (var i = 0; i < minLen; i++) {
+        if (parseInt(tabJeedomVesion[i]) > parseInt(tabCompareVersion[i])) {
+            return true;
+        }
+
+        if (parseInt(tabJeedomVesion[i]) < parseInt(tabCompareVersion[i])) {
+            return false;
+        }
+      }
+
+      return true;
     }
 
     function setDanfossValue(cmdWidgetId, danfossVal, mode) {
