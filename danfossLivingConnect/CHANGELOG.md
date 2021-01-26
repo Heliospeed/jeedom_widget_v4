@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.6] - 2021-01-26
+Maj pour compatibilité version 4.2 (mobile)
+### Modification :
+- cmd.action.slider.danfossLivingConnect.html
+
 ## [1.5] - 2021-01-18
 Maj pour compatibilité version 4.2
 ### Modification :

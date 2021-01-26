@@ -3,12 +3,12 @@
   <!--
       Jeedom Compatibility: v4
       Version: Dashboard/Mobile
-      Type: Action
+      Type: Info
       SubType: Numeric
       Name: cmd.action.slider.danfossLivingConnect.html
       Comment: Displays and allows modification of the Danfoss LC-13 setpoint
       Parameters: N/A
-      Date: 2021-01-18 v1.5
+      Date: 2021-01-26 v1.6
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks:
       - I reuse the images and font from an old v3 widget (DanfossIMG) - author : ?
@@ -431,21 +431,22 @@
     jeedom.cmd.update['#id#']({ display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#' });
 
     function mobileCssPosition(widgetUid) {
-
-      var divInt = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.state_danfoss');
-      var divIntWidth = parseFloat(divInt.width());
-      var widgetWidth = parseFloat(divInt.parent().width());
-      divInt.css('right', String(((widgetWidth / 2) - (divIntWidth / 2) + (divIntWidth / 4) - 3).toFixed(0)) + 'px');
-      var divDec = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.statedec_danfoss');
-      divDec.css('right', (parseFloat(divInt.css('right').replace('px', '')) - 13) + 'px');
-      var divUnit = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.unite_danfoss');
-      divUnit.css('right', (parseFloat(divInt.css('right').replace('px', '')) - 13) + 'px');
-      var divMinus = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.minus_mobile_danfoss');
-      divMinus.css('right', String((widgetWidth / 2) + 40 - divMinus.width()) + 'px');
-      var divPlus = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.plus_mobile_danfoss');
-      divPlus.css('right', String(parseFloat(divInt.css('right').replace('px', '')) - divPlus.width()) + 'px');
-      var divSwitch = $('.cmd[data-cmd_uid=' + widgetUid + ']').find('.switch_mobile_danfoss');
-      divSwitch.css('right', (widgetWidth / 2) - 5 + 'px');
+      	  var widget = $('.cmd[data-cmd_uid=' + widgetUid + ']');
+      	  widget.find('.value').css('width', '55px'); // Application de la valeur des versions < 4.2
+          var divInt = widget.find('.state_danfoss');
+          var divIntWidth = parseFloat(divInt.width());
+          var widgetWidth = parseFloat(widget.width());
+          divInt.css('right', String(((widgetWidth / 2) - (divIntWidth / 2) + (divIntWidth / 4) - 3).toFixed(0)) + 'px');
+          var divDec = widget.find('.statedec_danfoss');
+          divDec.css('right', (parseFloat(divInt.css('right').replace('px', '')) - 13) + 'px');
+          var divUnit = widget.find('.unite_danfoss');
+          divUnit.css('right', (parseFloat(divInt.css('right').replace('px', '')) - 13) + 'px');
+          var divMinus = widget.find('.minus_mobile_danfoss');
+          divMinus.css('right', String((widgetWidth / 2) + 40 - divMinus.width()) + 'px');
+          var divPlus = widget.find('.plus_mobile_danfoss');
+          divPlus.css('right', String(parseFloat(divInt.css('right').replace('px', '')) - divPlus.width()) + 'px');
+          var divSwitch = widget.find('.switch_mobile_danfoss');
+          divSwitch.css('right', (widgetWidth / 2) - 5 + 'px');
     }
 
     setTimeout(function () {
