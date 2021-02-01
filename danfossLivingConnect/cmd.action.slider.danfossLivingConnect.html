@@ -207,11 +207,11 @@
       let find = '';
 
       if ('#version#' === 'dashboard') {
-        if (!isEarlierVersion('4.2.0')){
+        if (!isEarlierVersion('4.2.1')){
           find = 'div.content-sm span span:first';
         }
         else {
-          find = 'div.value div.state strong:first'
+          find = 'div.state strong:first'
         }
       }
       else {
