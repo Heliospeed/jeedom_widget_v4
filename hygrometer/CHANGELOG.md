@@ -2,7 +2,7 @@
 Liste des modifications
 
 ## [1.4] - 2023-01-06
-Maj pour compatibilité version 4.2.1
+Maj pour compatibilité version 4.4.0
 ### Modification :
 - cmd.info.numeric.hygrometer.html
 
