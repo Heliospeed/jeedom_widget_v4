@@ -1,6 +1,6 @@
 <div class="cmd cmd-widget #history#" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
     <!--
-      Jeedom Compatibility: v4
+      Jeedom Compatibility: v4.4
       Version: Dashboard/Mobile
       Type: Info
       SubType: Numeric
@@ -9,7 +9,7 @@
       Parameters: 
       - largeurDashboardPx - Resize the dashboard widget image to the real width - default 20px - [range 20-29px]
       - largeurMobilePx - Resize the mobile widget image to the real width - default 20px - [range 20-29px]
-      Date: 2020-01-04
+      Date: 2023-01-06
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks: The template and the images have been modified and come from these repositories:
       Template : https://github.com/jeedom/core/blob/V4-stable/core/template/dashboard/cmd.info.numeric.tile.html
@@ -39,6 +39,33 @@
     </div>
   
     <script>
+      function getJeedomVersion(){
+        return $('#bt_jeedomAbout').text().split(' ')[2];
+      }
+
+      function isEarlierVersion(compareVersion){
+        var jeedomVesion = getJeedomVersion();
+        if (jeedomVesion === compareVersion) {
+          return true;
+        }
+
+        var tabJeedomVesion = jeedomVesion.split(".");
+        var tabCompareVersion = compareVersion.split(".");
+        var minLen = Math.min(tabJeedomVesion.length, tabCompareVersion.length);
+
+        for (var i = 0; i < minLen; i++) {
+          if (parseInt(tabJeedomVesion[i]) > parseInt(tabCompareVersion[i])) {
+              return true;
+          }
+
+          if (parseInt(tabJeedomVesion[i]) < parseInt(tabCompareVersion[i])) {
+              return false;
+          }
+        }
+
+        return true;
+      }
+      
       jeedom.cmd.update['#id#'] = function(_options){
         
         var cmd = $('.cmd[data-cmd_id=#id#]');
@@ -102,7 +129,7 @@
         var imgMaxHeight = 93;
         var imgMinHeight = 70;
         
-        cmd.find('div.content-sm').css('cssText','height: ' + imgMinHeight +'px !important;min-height: ' + imgMinHeight +'px !important; max-height: ' + imgMaxHeight + 'px !important;')
+        cmd.find('div.content-sm').css('cssText','height: ' + imgMinHeight +'px !important;min-height: ' + imgMinHeight +'px !important; max-height: ' + imgMaxHeight + 'px !important;display: table-cell !important')
            if (hauteurPx>imgMinHeight){
           pos = (hauteurPx - imgMinHeight)/2;
         }
@@ -122,15 +149,24 @@
         cmd.find('.stats').css('line-height', '10px');
         
         var cssCurrentValue = 'position: relative !important;top: ' + positionTop + 'px !important;';
-        cmd.find('.unitValue').css('cssText', cssCurrentValue );
+        var cssCurrentValueUnit = 'position: relative !important;top: ' + (positionTop+5) + 'px !important;';
+        var widthValue = 58;
+        if ('#version#' === 'dashboard') {
+          if (!isEarlierVersion('4.4.0')){
+            var cssCurrentValueUnit = cssCurrentValue;
+            var widthValue = 59;
+          }
+        }
+      
+        cmd.find('.unitValue').css('cssText', cssCurrentValueUnit );
         cmd.find('.state').css('cssText', cssCurrentValue + 'font-size: 15px !important;');
-        cmd.find('div span.tooltips').css('cssText', 'font-size: 10px !important;font-weight: normal !important;');
+        cmd.find('div span.tooltips').css('cssText', 'word-break:normal;font-size: 10px !important;font-weight: normal !important;');
         cmd.css("padding-bottom", "15px");
         cmd.css("width", largeurWidget + "px");
         cmd.find('.img').css('height', hauteurPx + 'px');
         cmd.find('.img').css('width', largeurPx);
         cmd.find('.val').css('height', hauteurPx + 'px');
-        cmd.find('.val').css('width', '59px');
+        cmd.find('.val').css('width', widthValue + 'px');
       }
       jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
     </script>
