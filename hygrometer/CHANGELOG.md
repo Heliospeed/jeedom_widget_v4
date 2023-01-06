@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.4] - 2023-01-06
+Maj pour compatibilité version 4.2.1
+### Modification :
+- cmd.info.numeric.hygrometer.html
+
 ## [1.3] - 2020-01-04
 N'affiche pas de décimal lorsque c'est un entier.
 ### Modification :
