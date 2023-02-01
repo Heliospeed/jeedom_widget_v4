@@ -1,5 +1,5 @@
 <div class="cmd cmd-widget" data-type="action" data-subtype="slider" data-template="button" data-cmd_id="#id#"
-  data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+  data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#" style="position: relative">
   <!--
       Jeedom Compatibility: v4
       Version: Dashboard/Mobile
@@ -8,22 +8,23 @@
       Name: cmd.action.slider.danfossLivingConnect.html
       Comment: Displays and allows modification of the Danfoss LC-13 setpoint
       Parameters: N/A
-      Date: 2021-02-01 v1.7
+      Date: 2023-02-01 v1.8
       Source: https://github.com/Heliospeed/jeedom_widget_v4/
       Remarks:
       - I reuse the images and font from an old v3 widget (DanfossIMG) - author : ?
       - The image highlighting buttons made by naboleo
       - It is necessary to activate the "default" widgets (battery, setpoint and setpoint pending).
   -->
+    <div class="danfossImg #version#_danfossImg"></div>
+    <div class="state_danfoss state_#version#_danfoss state_color_font_default consigne value"></div>
+    <div class="statedec_danfoss statedec_#version#_danfoss state_color_font_default consigne value"></div>
+    <div class="unite_danfoss unite_#version#_danfoss state_color_font_default value">#unite#</div>
+    <div class="btn_ctrl_danfoss minus_danfoss minus_#version#_danfoss"></div>
+    <div class="btn_ctrl_danfoss plus_danfoss plus_#version#_danfoss"></div>
+    <div class="btn_switch_danfoss switch_#version#_danfoss"></div>
+    <input type="hidden" class="switch#id#"></input>
 
-  <div class="danfossImg #version#_danfossImg"></div>
-  <div class="state_danfoss state_#version#_danfoss state_color_font_default consigne value"></div>
-  <div class="statedec_danfoss statedec_#version#_danfoss state_color_font_default consigne value"></div>
-  <div class="unite_danfoss unite_#version#_danfoss state_color_font_default value">#unite#</div>
-  <div class="btn_ctrl_danfoss minus_danfoss minus_#version#_danfoss"></div>
-  <div class="btn_ctrl_danfoss plus_danfoss plus_#version#_danfoss"></div>
-  <div class="btn_switch_danfoss switch_#version#_danfoss"></div>
-  <input type="hidden" class="switch#id#"></input>
+
   <style>
     @font-face {
       font-family: "Digital-7";
@@ -85,6 +86,11 @@
       top: 35px;
       right: 3px;
     }
+    
+    .state_dashboard_danfoss_v4_4 {
+      top: 35px;
+      right: 32px;
+    }
 
     .state_mobile_danfoss {
       top: 54px;
@@ -100,6 +106,11 @@
       top: 38px;
       right: -9px;
     }
+    
+    .statedec_dashboard_danfoss_v4_4 {
+      top: 38px;
+      right: 26px;
+    }
 
     .statedec_mobile_danfoss {
       top: 65px;
@@ -114,6 +125,11 @@
     .unite_dashboard_danfoss {
       top: 29px;
       right: -11px;
+    }
+    
+    .unite_dashboard_danfoss_v4_4 {
+      top: 29px;
+      right: 26px;
     }
 
     .unite_mobile_danfoss {
@@ -186,19 +202,24 @@
       let widget = getWidgetInfoNumericDefault(cmdWidgetId, cmdName);
       let find = '';
 
-      if ('#version#' === 'dashboard') {
+      if ('#version#' === 'dashboard') {  
         if (!isEarlierVersion('4.2.1')){
           find = 'div.content-sm span span:first';
         }
         else {
-          find = 'div.state strong:first';
+          if (!isEarlierVersion('4.4.0')){
+          	find = 'div.state strong:first';
+          }
+          else{
+            find = 'div.content-xs span.value:first';
+          	
+          }
         }										 
       }
       else {
         find = '.state:first';
       }
-
-													  
+									  
       return widget.find(find).text();
     }
 
@@ -207,11 +228,18 @@
       let find = '';
 
       if ('#version#' === 'dashboard') {
+        
+        
         if (!isEarlierVersion('4.2.1')){
           find = 'div.content-sm span span:first';
         }
         else {
-          find = 'div.state strong:first'
+          if (!isEarlierVersion('4.4.0')){
+            find = 'div.state strong:first';
+          }
+          else{
+          	find = 'div.content-xs span.value:first';
+          }
         }
       }
       else {
@@ -286,6 +314,7 @@
 
     function isEarlierVersion(compareVersion){
       var jeedomVesion = getJeedomVersion();
+      
       if (jeedomVesion === compareVersion) {
         return true;
       }
@@ -448,6 +477,13 @@
           var divSwitch = widget.find('.switch_mobile_danfoss');
           divSwitch.css('right', (widgetWidth / 2) - 5 + 'px');
     }
+    
+    function dashboardCssPositionV4_4(widgetUid, versionCss) {
+      var widget = $('.cmd[data-cmd_uid=' + widgetUid + ']');
+      widget.find('.state_dashboard_danfoss').removeClass('state_dashboard_danfoss').addClass('state_dashboard_danfoss_' + versionCss);
+      widget.find('.statedec_dashboard_danfoss').removeClass('statedec_dashboard_danfoss').addClass('statedec_dashboard_danfoss_' + versionCss);
+      widget.find('.unite_dashboard_danfoss').removeClass('unite_dashboard_danfoss').addClass('unite_dashboard_danfoss_' + versionCss);
+    }
 
     setTimeout(function () {
       hideWidget('#id#', consigne_cdeName);
@@ -456,7 +492,12 @@
 
       if ('#version#' === 'mobile') {
         mobileCssPosition('#uid#');
+      } else{
+        if (isEarlierVersion('4.4.0')){
+          dashboardCssPositionV4_4('#uid#','v4_4');
+        }
       }
+     
     }, 100)
   </script>
 </div>
