@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.9] - 2024-04-09
+Hauteur fixe pour éviter la scroolbar verticale.
+### Modification :
+- cmd.action.slider.danfossLivingConnect.html
+
 ## [1.8] - 2023-02-01
 Maj pour compatibilité version 4.4.0
 ### Modification :
