@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.7] - 2024-04-19
+Maj pour compatibilité version 4.4 dans une vue Design
+### Modification :
+- cmd.info.numeric.thermometer.html
+
 ## [1.6] - 2023-01-06
 Maj pour compatibilité version 4.4.0
 ### Modification :
