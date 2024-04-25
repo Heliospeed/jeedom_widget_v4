@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [1.5] - 2024-04-25
+Maj pour compatibilité version 4.4 dans une vue Design
+### Modification :
+- cmd.info.numeric.hygrometer.html
+
 ## [1.4] - 2023-01-06
 Maj pour compatibilité version 4.4.0
 ### Modification :
