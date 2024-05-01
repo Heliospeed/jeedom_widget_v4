@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [2.0] - 2020-05-01
+Compatibilité à partir de Jeedom Core 4.4 + suppression de jQuery.
+### Modification :
+- cmd.info.binary.commandIconAndValueIcon.html
+
 ## [1.5] - 2021-01-09
 Fusion de la version bashboard et mobile
 ### Modification :

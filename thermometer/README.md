@@ -35,5 +35,4 @@ Il faut recopier les images dans `/var/www/html/data/img` soit en les copiants s
 
 |Parametre|version|valeur|Aperçu|Description|
 |-|-|-|-|-|
-|largeurDashboardPx|Dashboard|[20-29] (px)||Permet d'agrandir la largeur de l'image jusqu'à sa resolution maxi. La valeur par défaut est "20" px|
-|largeurMobilePx|Mobile|[20-29] (px)||idem|
+|time|duration or date|Dashboard<br/>Mobile|Affiche durée ou date de la valeur|

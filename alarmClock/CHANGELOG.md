@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [2.0] - 2020-05-01
+Compatibilité à partir de Jeedom Core 4.4 + suppression de jQuery.
+### Modification :
+- cmd.info.string.alarmClock.html
+
 ## [1.3] - 2020-04-19
 Correction d'un bug sur le calcul de l'heure d'activation.
 ### Modification :

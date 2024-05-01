@@ -1,109 +1,104 @@
-<div class="cmd cmd-widget #history#" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
-  <!--
-      Jeedom Compatibility: v4
-      Version: Dashboard/Mobile
-      Type: Info
-      SubType: String
-      Name: cmd.info.string.alarmClock.html
-      Comment: An alarm clock. wake-up time (within 24 hours)
-      Parameters: 
-       - ratio : the coefficient to resize the dashboard image - range [0.5 - 1.5] : default value 1
-       - ratioMobile : the coefficient to resize the mobile image - range [0.5 - 1.5] : default value 0.75
-      Date: 2020-04-19
-      Source: https://github.com/Heliospeed/jeedom_widget_v4/
-      Remarks: I reuse the images from an old v3 widget (alarm-clock) - author : ?
+<div class="cmd cmd-widget #history#" data-type="info" data-subtype="string" data-template="default" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
+    <!--
+	  Name: cmd.info.string.alarmClock.html
+    Jeedom Compatibility: v4.4.5
+    Version 2.0.0 - 2024-05-01
   -->
   <div class="title #hide_name#">
-    <div  class="cmdName">#name_display#</div>
+    <div class="cmdName">#name_display#</div>
   </div>
-  <div class="content-sm">
-    <span id="clock#id#"></span>
+  <div class="content">
+    <span class="clock"></span>
   </div>
-  <div class="value">
-    <span class="timeCmd#uid# timeCmd label label-default value"></span>
-  </div>
-
+  <div class="timeCmd label label-default #history#" data-type="info"></div>
+  <template>
+    <div>time : duration|date ({{Affiche durée ou date de la valeur}})</div>
+  </template>
   <script>
-    jeedom.cmd.update['#id#'] = function(_options){
-      var version = ('#version#'!='#'+'version#') ? "#version#" : "";
-      var ratio = 1;
-
-      if (version === 'dashboard'){
-        ratio = ('#ratio#'!='#'+'ratio#') ? "#ratio#" : "1";
-      } else{
-        ratio = ('#ratioMobile#'!='#'+'ratioMobile#') ? "#ratioMobile#" : ".75";
-      }
-
-      if (ratio < .5){
-        ratio = .5;
-      }else if (ratio > 1.5){
-        ration = 1.5;
-      }
-      
-      var cmd = $('.cmd[data-cmd_id=#id#]');
-      var wakingTime = _options.display_value.split("");
-
-      if (wakingTime.length >= 16){
-        var h1 = isNaN(wakingTime[11]) ? 'x' : wakingTime[11];
-        var h2 = isNaN(wakingTime[12]) ? 'x' : wakingTime[12];
-        var i1 = isNaN(wakingTime[14]) ? 'x' : wakingTime[14];
-        var i2 = isNaN(wakingTime[15]) ? 'x' : wakingTime[15];
-
-        var d1 = isNaN(wakingTime[0]) ? 'x' : wakingTime[0];
-        var d2 = isNaN(wakingTime[1]) ? 'x' : wakingTime[1];
-        var m1 = isNaN(wakingTime[3]) ? 'x' : wakingTime[3];
-        var m2 = isNaN(wakingTime[4]) ? 'x' : wakingTime[4];
-        var y1 = isNaN(wakingTime[6]) ? 'x' : wakingTime[6];
-        var y2 = isNaN(wakingTime[7]) ? 'x' : wakingTime[7];
-        var y3 = isNaN(wakingTime[8]) ? 'x' : wakingTime[8];
-        var y4 = isNaN(wakingTime[9]) ? 'x' : wakingTime[9];
-
-        var wakingDate = new Date(y1+y2+y3+y4+'-'+m1+m2+'-'+d1+d2+'T'+h1+h2+':'+i1+i2+':00');
-        var now = new Date();
-        var diff = new Date(wakingDate - now);        
-        var hoursDiff = Math.round(diff/1000/60/60);
-
-        if(isNaN(hoursDiff)){
-          // Alarme en erreur
-          h1='x';
-          h2='x';
-          i1='x';
-          i2='x';
-        } else if (hoursDiff < 0 || hoursDiff > 24) {
-          // Alarme non active dans les 24h
-          h1='-';
-          h2='-';
-          i1='-';
-          i2='-';
+    jeedom.cmd.addUpdateFunction('#id#', function (_options) {
+      if (is_object(cmd = document.querySelector('.cmd[data-cmd_uid="#uid#"]'))) {
+        cmd.querySelector('.content').setAttribute('title', '{{Date de valeur}}: ' + _options.valueDate + '<br>{{Date de collecte}}: ' + _options.collectDate)
+        if ('#_time_widget_#' == '1' || '#time#' == 'duration' || '#time#' == 'date') {
+          jeedom.cmd.displayDuration(_options.valueDate, cmd.querySelector('.timeCmd'), '#time#');
         }
-      }
 
-      var clockId = cmd.find('#clock#id#');
-      var imgWidth = parseInt(200*ratio);
-      var imgHeight = parseInt(70*ratio);
-      var hourMarginTop = parseInt(23*ratio);
-      var hourHeight = parseInt(32*ratio);
-      var hourWidth = parseInt(19*ratio);
-      clockId.empty();
-      clockId.css('cssText', 'float:left !important; margin-top:10px !important; width:' + imgWidth + 'px !important; height:' + imgHeight + 'px !important;');
-      clockId.css("background", "url('data/img/alarmClock_fond-bose.png') no-repeat");
-      clockId.css("background-size", imgWidth + "px " + imgHeight + "px");
-      clockId.append('<img src="data/img/alarmClock_'+h1+'.png" style="width: ' + hourWidth +'px; height: ' + hourHeight +'px;margin-top:' + hourMarginTop +'px;margin-left:2px;">');
-      clockId.append('<img src="data/img/alarmClock_'+h2+'.png" style="width: ' + hourWidth +'px; height: ' + hourHeight +'px;margin-top:' + hourMarginTop +'px;margin-right:10px;">');
-      clockId.append('<img src="data/img/alarmClock_'+i1+'.png" style="width: ' + hourWidth +'px; height: ' + hourHeight +'px;margin-top:' + hourMarginTop +'px;">');
-      clockId.append('<img src="data/img/alarmClock_'+i2+'.png" style="width: ' + hourWidth +'px; height: ' + hourHeight +'px;margin-top:' + hourMarginTop +'px;">');
+        var wakingTime = _options.display_value.split('');
 
-      var hasCommandIcon = cmd.find('.title div.cmdName i').is('i');
-      var hasCommandName = cmd.find('.title div.cmdName').text().length > 0;
-      var pos =10;
-      if (hasCommandName || hasCommandIcon){
-        cmd.find('.title').css('cssText', 'padding-bottom: ' + pos + 'px !important;');
-        pos=0;
+        if (wakingTime.length >= 16) {
+          var h1 = isNaN(wakingTime[11]) ? 'x' : wakingTime[11];
+          var h2 = isNaN(wakingTime[12]) ? 'x' : wakingTime[12];
+          var i1 = isNaN(wakingTime[14]) ? 'x' : wakingTime[14];
+          var i2 = isNaN(wakingTime[15]) ? 'x' : wakingTime[15];
+
+          var d1 = isNaN(wakingTime[0]) ? 'x' : wakingTime[0];
+          var d2 = isNaN(wakingTime[1]) ? 'x' : wakingTime[1];
+          var m1 = isNaN(wakingTime[3]) ? 'x' : wakingTime[3];
+          var m2 = isNaN(wakingTime[4]) ? 'x' : wakingTime[4];
+          var y1 = isNaN(wakingTime[6]) ? 'x' : wakingTime[6];
+          var y2 = isNaN(wakingTime[7]) ? 'x' : wakingTime[7];
+          var y3 = isNaN(wakingTime[8]) ? 'x' : wakingTime[8];
+          var y4 = isNaN(wakingTime[9]) ? 'x' : wakingTime[9];
+
+          var wakingDate = new Date(y1 + y2 + y3 + y4 + '-' + m1 + m2 + '-' + d1 + d2 + 'T' + h1 + h2 + ':' + i1 + i2 + ':00');
+          var now = new Date();
+          var diff = new Date(wakingDate - now);
+          var hoursDiff = Math.round(diff / 1000 / 60 / 60);
+
+          if (isNaN(hoursDiff)) {
+            // Alarme en erreur
+            h1 = 'x';
+            h2 = 'x';
+            i1 = 'x';
+            i2 = 'x';
+          } else if (hoursDiff < 0 || hoursDiff > 24) {
+            // Alarme non active dans les 24h
+            h1 = '-';
+            h2 = '-';
+            i1 = '-';
+            i2 = '-';
+          }
+        }
+
+        var ratio = 1;
+        var clockId = cmd.querySelector('.clock');
+        var imgWidth = parseInt(200 * ratio);
+        var imgHeight = parseInt(70 * ratio);
+        var hourMarginTop = parseInt(23 * ratio);
+        var hourHeight = parseInt(32 * ratio);
+        var hourWidth = parseInt(19 * ratio);
+
+        clockId.innerHTML = '';
+        clockId.style.cssText += 'display:block;margin-top:10px !important; width:' + imgWidth + 'px !important; height:' + imgHeight + 'px !important;';
+        clockId.style.cssText += `background:url('data/img/alarmClock_fond-bose.png') no-repeat;`;
+        clockId.style.cssText += `background-size:` + imgWidth + `px ` + imgHeight + `px;`;
+
+        var imgH1 = document.createElement('img');
+        imgH1.src = `data/img/alarmClock_` + h1 + `.png`;
+        imgH1.style.cssText += `width:` + hourWidth + `px; height:` + hourHeight + `px;margin-top:` + hourMarginTop + `px;margin-left:2px;`;
+        var imgH2 = document.createElement('img');
+        imgH2.src = `data/img/alarmClock_` + h2 + `.png`;
+        imgH2.style.cssText += `width:` + hourWidth + `px; height:` + hourHeight + `px;margin-top:` + hourMarginTop + `px;margin-right:10px;`;
+
+        var imgM1 = document.createElement('img');
+        imgM1.src = `data/img/alarmClock_` + i1 + `.png`;
+        imgM1.style.cssText += `width:` + hourWidth + `px; height:` + hourHeight + `px;margin-top:` + hourMarginTop + `px;`;
+        var imgM2 = document.createElement('img');
+        imgM2.src = `data/img/alarmClock_` + i2 + `.png`;
+        imgM2.style.cssText += `width:` + hourWidth + `px; height:` + hourHeight + `px;margin-top:` + hourMarginTop + `px;`;
+
+        clockId.append(imgH1);
+        clockId.append(imgH2);
+        clockId.append(imgM1);
+        clockId.append(imgM2);
+
+
+
+        var divContent = cmd.querySelector('.content');
+        divContent.style.cssText += 'padding-bottom: 15px;';
+
       }
-      cmd.find('.timeCmd').removeClass('timeCmd').empty();
-      cmd.css("padding-bottom", "15px");
-      cmd.css("width", imgWidth + "px");
-    }
-    jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+    })
+
+    jeedom.cmd.refreshValue([{ cmd_id: '#id#', value: '#value#', display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#', unit: '#unite#' }])
   </script>
 </div>

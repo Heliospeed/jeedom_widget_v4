@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [2.0] - 2024-04-27
+Compatibilité à partir de Jeedom Core 4.4 + suppression de jQuery.
+### Modification :
+- cmd.info.numeric.hygrometer.html
+
 ## [1.5] - 2024-04-25
 Maj pour compatibilité version 4.4 dans une vue Design
 ### Modification :

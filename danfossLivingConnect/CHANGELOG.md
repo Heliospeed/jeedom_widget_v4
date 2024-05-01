@@ -1,6 +1,11 @@
 # Changelog
 Liste des modifications
 
+## [2.0] - 2020-04-29
+Compatibilité à partir de Jeedom Core 4.4 + suppression de jQuery.
+### Modification :
+- cmd.action.slider.danfossLivingConnect.html
+
 ## [1.9] - 2024-04-09
 Hauteur fixe pour éviter la scroolbar verticale.
 ### Modification :

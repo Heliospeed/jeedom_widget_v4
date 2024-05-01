@@ -21,7 +21,7 @@ ou créer un nouveau script ayant les caractéristique suivante :
 |Version|Dashboard ou Mobile|
 |Type|Info|
 |Sous-type|Autre|
-|Nom|Hygrometer (par exemple)|
+|Nom|alarmClock (par exemple)|
 et recopier le contenu du fichier `cmd.info.string.alarmClock.html`
 
 ### Copier les images
@@ -33,5 +33,4 @@ Il faut recopier les images dans `/var/www/html/data/img` soit en les copiants s
 
 |Parametre|version|valeur|Aperçu|Description|
 |-|-|-|-|-|
-|ratio|Dashboard|[0.5-1.5] (px)||Permet d'agrandir ou réduire l'image.<br/>Valeur par défaut "1"|
-|ratioMobile|Mobile|[0.5-1.5] (px)||idem. Sauf la valeur par défaut "0.75"|
+|time|duration or date||Affiche durée ou date de la valeur|

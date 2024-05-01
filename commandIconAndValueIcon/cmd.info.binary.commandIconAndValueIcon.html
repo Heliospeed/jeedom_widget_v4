@@ -1,112 +1,97 @@
-<!-- Info Widget Jeedom
-  Jeedom Compatibility: v4
-  Version: Dashboard/Mobile
-  Type: Info
-  SubType: Binary
-  Name: cmd.info.binary.commandIconAndValueIcon.html
-  Comment: Show command icon + value icon + [time value (optional)]
-  Parameters: 
-  - timeWidget (on/off) - default on
-  - timeWidgetMobile (on/off) - default off
-  - tagIconName : replaces the tag icon (ex : "<i class='icon jeedomapp-in'></i>")
-  - iconColor : code or color Name (optional)
-  - commandName : replaces the command name
-  - iconOn : the icon name when the value is true (default: <i class='fas fa-circle'></i>)
-  - iconOff : the icon name when the value is true (default: <i class='far fa-circle></i>)
-  Date: 2021-01-09
-  Source: https://github.com/Heliospeed/jeedom_widget_v4/
--->
-<div class="cmd cmd-widget cursor #history#" data-type="info" data-subtype="binary" data-template="tmplicon" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#">
+<div class="cmd cmd-widget #history#" data-type="info" data-subtype="binary" data-template="tmplicon" data-cmd_id="#id#"
+  data-cmd_uid="#uid#" data-version="#version#">
+  <!--
+	  Name: cmd.info.binary.commandIconAndValueIcon.html
+    Jeedom Compatibility: v4.4.5
+    Version 2.0.0 - 2024-05-01
+  -->
   <div class="title #hide_name#">
     <div class="cmdName">#name_display#</div>
   </div>
-  <div class="content-sm">
+  <div class="content">
     <span class="iconCmd"></span>
   </div>
-  <div class="value">
-    <span class="timeCmd#uid# timeCmd label label-default value"></span>
+  <div class="state">
+    <span class="value"></span>
   </div>
-
+  <div class="timeCmd label label-default #history#" data-type="info"></div>
+  <template>
+    <div>time : duration|date ({{Affiche durée ou date de la valeur}})</div>
+    <div>timeMobileOff : 0|1 ({{Masque la durée ou la date pour l'affichage mobile}})</div>
+    <div>iconOn : balise i à afficher ({{par défaut &lt;i class="fas fa-circle"&gt;&lt;/i&gt;}})</div>
+    <div>iconOff : balise i à afficher ({{par défaut &lt;i class="far fa-circle"&gt;&lt;/i&gt;}})</div>
+    <div>iconColor : nom ou code couleur</div>
+  </template>
   <script>
-    jeedom.cmd.update['#id#'] = function(_options){
-      var cmd = $('.cmd[data-cmd_id=#id#]');
-      
-      var timeWidget ='';
-      if ('#version#' !== 'mobile'){
-        timeWidget 	= ('#timeWidget#'!='#'+'timeWidget#') ? "#timeWidget#" : "on";
-      }
-      else{
-        timeWidget 	= ('#timeWidgetMobile#'!='#'+'timeWidgetMobile#') ? "#timeWidgetMobile#" : "off";
-      }
+    jeedom.cmd.addUpdateFunction('#id#', function (_options) {
+      if (is_object(cmd = document.querySelector('.cmd[data-cmd_uid="#uid#"]'))) {
+        cmd.querySelector('.content').setAttribute('title', '{{Date de valeur}}: ' + _options.valueDate + '<br>{{Date de collecte}}: ' + _options.collectDate)
+        if ('#_time_widget_#' == '1' || '#time#' == 'duration' || '#time#' == 'date') {
+          jeedom.cmd.displayDuration(_options.valueDate, cmd.querySelector('.timeCmd'), '#time#')
+        }
 
-      var tagIconName = ('#tagIconName#'!='#'+'tagIconName#') ? '#tagIconName#' : '';
-      var iconColor = ('#iconColor#'!='#'+'iconColor#') ? '#iconColor#' : '';
-      var commandName = ('#commandName#'!='#'+'commandName#') ? '#commandName#' : '';
-      var hasCommandIcon = cmd.find('.title div.cmdName i').is('i');
-      var hasCommandName = cmd.find('.title div.cmdName').text().length > 0;
-      var iconOn = ('#iconOn#'!='#'+'iconOn#') ? '#iconOn#' : "<i class='fas fa-circle'></i>";
-      var iconOff = ('#iconOff#'!='#'+'iconOff#') ? '#iconOff#' : "<i class='far fa-circle'></i>";
+        var iconOn = (`#iconOn#` != `#` + `iconOn#`) ? `#iconOn#` : `<i class="fas fa-circle"></i>`;
+        var iconOff = (`#iconOff#` != `#` + `iconOff#`) ? `#iconOff#` : `<i class="far fa-circle"></i>`;
+        var iconColor = (`#iconColor#` != `#` + `iconColor#`) ? `#iconColor#` : ``;
+        var timeMobileOff = (`#timeMobileOff#` != `#` + `timeMobileOff#`) ? `#timeMobileOff#` : `0`;
 
-      if (hasCommandIcon && cmd.find('.title div.cmdName i').prop("class").length > 0 && tagIconName.length === 0){
+        if ('#version#' === 'mobile') {
+          if (timeMobileOff === '1' || timeMobileOff === 'true') {
+            cmd.querySelector('.timeCmd').innerHTML = '';
+            cmd.querySelector('.timeCmd').classList.remove('timeCmd');
+          }
+        }
+
         // Récupération de l'icone de la commande
-        tagIconName = "<i class='" + cmd.find('.title div.cmdName i').prop("class") + "'></i>";
-      }
+        var tagIconName = '';
+        var icon = cmd.querySelector('.title div.cmdName i');
+        if (icon !== null) {
+          tagIconName = document.createElement('i');
+          tagIconName.className = icon.className;
+          tagIconName.style.cssText += "font-size: 30px !important";
+          if (iconColor.length > 0) {
+            tagIconName.style.color = iconColor;
+          }
+        }
 
-      if (hasCommandName && commandName.length === 0){
         // Récupération du nom de la commande
-        commandName = cmd.find('.title div.cmdName').text();
-      }
-
-      var hasNameAndIconCustom = commandName.length > 0 && tagIconName.length > 0;
-
-      cmd.find('.title div.cmdName').empty();
-
-      if (commandName.length !== 0 && hasCommandName){
-        cmd.find('.title div.cmdName').append(commandName);
-      }
-
-      // Ajout de l'icone (dans un div si le nom doit aussi être présent)
-      if (tagIconName.length !== 0){
-        if (hasNameAndIconCustom && hasCommandName){
-          cmd.find('.title div.cmdName').append("<div>");
+        var cmdName = '';
+        var divName = cmd.querySelector('.title div.cmdName');
+        if (divName !== null) {
+          cmdName = divName.innerText;
         }
 
-        cmd.find('.title div.cmdName').append(tagIconName);
-        var cssIcon = "font-size: 30px !important;";
-        if (iconColor.length > 0){
-          cssIcon = cssIcon + "color: " + iconColor + " !important;"
+        if (tagIconName.length !== 0) {
+          divIcon = document.createElement('div');
+          divIcon.style.paddingTop = "10px";
+          divIcon.appendChild(tagIconName);
+          divName.innerHTML = '';
+          divName.append(cmdName);
+          divName.append(divIcon);
         }
-        cmd.find('.title div.cmdName i').css("cssText", cssIcon);
 
-        if (hasNameAndIconCustom && hasCommandName){
-          cmd.find('.title div.cmdName').append("</div>");
+        var iconState = cmd.querySelector('.iconCmd');
+        iconState.style.cssText += "font-size: 12px !important";
+        iconState.parentElement.style.minHeight = "12px";
+        iconState.parentElement.style.paddingBottom = "5px";
+        iconState.parentElement.style.paddingTop = "10px";
+        if (_options.display_value == 1) {
+          iconState.innerHTML = iconOn
+        } else if (_options.display_value == 0) {
+          iconState.innerHTML = iconOff
+        } else {
+          cmd.querySelector('.value').innerHTML = '<span class="label label-danger">' + _options.value + '</span>'
         }
-        cmd.find('.title div.cmdName div').css("padding-top", "10px");
-      }
 
-      // Affichage du delais de changement de valeur
-      if (timeWidget == 'on'){
-        jeedom.cmd.displayDuration(_options.valueDate,  cmd.find('.timeCmd'));
+        if (_options.alertLevel == 'warning') {
+          cmd.querySelector('.value').innerHTML = '<span class="label label-warning"><i class="fas fa-bell"></i> ' + _options.value + '</span>'
+        } else if (_options.alertLevel == 'danger') {
+          cmd.querySelector('.value').innerHTML = '<span class="label label-danger"><i class="fas fa-exclamation"></i> ' + _options.value + '</span>'
+        }
+        iconState.querySelector('i').style.cssText += "font-size: 12px !important";
       }
-      else{
-        cmd.find('.timeCmd').removeClass('timeCmd').empty();
-      }
+    })
 
-      cmd.attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
-
-      if (_options.display_value == '1') {
-        cmd.find('.iconCmd').empty().append(iconOn);
-      }
-      else {
-        cmd.find('.iconCmd').empty().append(iconOff);
-      }
-
-      var cssIcon = "font-size: 12px !important;";
-    cmd.find('.iconCmd').css("cssText", cssIcon);
-      cmd.find('.iconCmd i').css("cssText", cssIcon);
-      cmd.css("padding-bottom", "15px");
-    }
-
-    jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
+    jeedom.cmd.refreshValue([{ cmd_id: '#id#', value: '#value#', display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#', unit: '#unite#' }]) 
   </script>
 </div>

@@ -1,173 +1,123 @@
 <div class="cmd cmd-widget #history#" data-type="info" data-subtype="numeric" data-template="tile" data-cmd_id="#id#" data-cmd_uid="#uid#" data-version="#version#" data-eqLogic_id="#eqLogic_id#">
-    <!--
-      Jeedom Compatibility: v4.4.3
-      Version: Dashboard/Mobile
-      Type: Info
-      SubType: Numeric
-      Name: cmd.info.numeric.hygrometer.html
-      Comment: An hygrometer image with a current value (+stats).
-      Parameters: 
-      - largeurDashboardPx - Resize the dashboard widget image to the real width - default 20px - [range 20-29px]
-      - largeurMobilePx - Resize the mobile widget image to the real width - default 20px - [range 20-29px]
-      Date: 2024-04-25
-      Source: https://github.com/Heliospeed/jeedom_widget_v4/
-      Remarks: The template and the images have been modified and come from these repositories:
-      Template : https://github.com/jeedom/core/blob/V4-stable/core/template/dashboard/cmd.info.numeric.tile.html
-      Images : widget v3 Dany21000
+  <!--
+	  Name: cmd.info.numeric.hygrometer.html
+    Jeedom Compatibility: v4.4.5
+    Version 2.0.1 - 2024-04-27 
   -->
-    <div class="title #hide_name#">
-      <div  class="cmdName">#name_display#</div>
-    </div>
-    <div class="content-sm">
-      <div class="pull-left img">
-          <span id="hygro#id#"></span>
+  <div class="title #hide_name#">
+    <div class="cmdName">#name_display#</div>
+  </div>
+  <div class="content">
+    <div class="left"></div>
+    <div class="right">
+      <div class="valDetail">
+        <span class="value state"></span> <span class="unit"></span>
       </div>
-      <div class="pull-right val">
-        <div>
-          <span class="float-end state currentValue"></span>
-          <span class="float-end unitValue">#unite#</span>
-        </div>
-        <div class="statsPart1 #hide_history#">
-          <div class="stats"><span title='Min' class='tooltips'>Min : #minHistoryValue#</span></div>
-          <div class="stats"><span title='Max' class='tooltips'>Max : #maxHistoryValue#</span></div>
-          <div class="stats"><span title='Moyenne' class='tooltips'>Moy : #averageHistoryValue#</span></div>
-        </div>
+      <div class="cmdStats #hide_history#">
+        <span title="{{Minimum}}" class="tooltips">Min : #minHistoryValue#</span>
+        <span title="{{Moyenne}}" class="tooltips">Max : #averageHistoryValue#</span>
+        <span title="{{Maximum}}" class="tooltips">Moy : #maxHistoryValue#</span>
+        <span class="tendance" title="{{Tendance}}" class="tooltips">Tendance : <i class="#tendance#"></i></span>
       </div>
     </div>
-    <div class="#hide_history#">
-        <div class="stats"><span title='Tendance' class='tooltips'>Tendance : <i class="#tendance#"></i></span></div>
-    </div>
-  
-    <script>
-      function getJeedomVersion(){
-        return $('#bt_jeedomAbout').text().split(' ')[2];
-      }
+  </div>
+  <div class="timeCmd label label-default #history#" data-type="info"></div>
+  <template>
+    <div>time : duration|date ({{Affiche durée ou date de la valeur}})</div>
+  </template>
+  <style>
+    div.cmd.cmd-widget[data-cmd_id="#id#"][data-type="info"][data-subtype="numeric"][data-template="tile"] .state {
+      font-size: 1.2em !important;
+    }
 
-      function isEarlierVersion(compareVersion){
-        var jeedomVesion = getJeedomVersion();
-        if (jeedomVesion === compareVersion) {
-          return true;
+    [data-cmd_id="#id#"] .cmd-widget {
+      width: 120px;
+      display: block !important;
+    }
+
+    [data-cmd_id="#id#"] .content {
+      display: block !important;
+      padding: 10px;
+      width: 120px;
+      height: 105px;
+    }
+
+    [data-cmd_id="#id#"] .left {
+      float: left;
+    }
+
+    [data-cmd_id="#id#"] .right {
+      text-align: left;
+      padding-left: 35px;
+    }
+
+    [data-cmd_id="#id#"] .valDetail {
+      padding-bottom: 2px;
+    }
+
+    [data-cmd_id="#id#"] .valDetail span.value {
+      font-size: 15px !important;
+    }
+
+    [data-cmd_id="#id#"] .cmdStats span {
+      display: block;
+    }
+
+    [data-cmd_id="#id#"] .tendance {
+      padding-top: 5px;
+    }
+  </style>
+  <script>
+    jeedom.cmd.addUpdateFunction('#id#', function (_options) {
+      if (is_object(cmd = document.querySelector('.cmd[data-cmd_uid="#uid#"]'))) {
+        cmd.querySelector('.content').setAttribute('title', '{{Date de valeur}}: ' + _options.valueDate + '<br>{{Date de collecte}}: ' + _options.collectDate)
+        if ('#time#' == 'duration' || '#time#' == 'date') {
+          jeedom.cmd.displayDuration(_options.valueDate, cmd.querySelector('.timeCmd'), '#time#')
         }
 
-        var tabJeedomVesion = jeedomVesion.split(".");
-        var tabCompareVersion = compareVersion.split(".");
-        var minLen = Math.min(tabJeedomVesion.length, tabCompareVersion.length);
-
-        for (var i = 0; i < minLen; i++) {
-          if (parseInt(tabJeedomVesion[i]) > parseInt(tabCompareVersion[i])) {
-              return true;
-          }
-
-          if (parseInt(tabJeedomVesion[i]) < parseInt(tabCompareVersion[i])) {
-              return false;
-          }
+        if (is_numeric(_options.value)) {
+          cmd.querySelector('.value').innerHTML = _options.display_value
+          cmd.querySelector('.unit').innerHTML = _options.unit
+        } else {
+          cmd.querySelector('.value').innerHTML = '<span class="label label-danger">' + _options.value + '</span>'
         }
 
-        return true;
-      }
-      
-      jeedom.cmd.update['#id#'] = function(_options){
-        
-        var cmd = $('.cmd[data-cmd_id=#id#]');
-        var imgNumber = '';
-        var taux = (parseFloat(_options.display_value).toFixed(1) - parseInt(_options.display_value)) === 0 ? parseInt(_options.display_value) : parseFloat(_options.display_value).toFixed(1);
-        var hideHistory 	= ('#hide_history#'!='#'+'hide_history#') ? "#hide_history#" : "off";
-        var version = ('#version#'!='#'+'version#') ? "#version#" : "";
-        var largeurPx = "20";
-        if (version === 'dashboard'){
-          largeurPx = ('#largeurDashboardPx#'!='#'+'largeurDashboardPx#') ? "#largeurDashboardPx#" : "20";
-        }else{
-          largeurPx = ('#largeurMobilePx#'!='#'+'largeurMobilePx#') ? "#largeurMobilePx#" : "20";
+        if (_options.alertLevel == 'warning') {
+          cmd.querySelector('.value').innerHTML = '<span class="label label-warning"><i class="fas fa-bell"></i> ' + _options.value + '</span>'
+        } else if (_options.alertLevel == 'danger') {
+          cmd.querySelector('.value').innerHTML = '<span class="label label-danger"><i class="fas fa-exclamation"></i> ' + _options.value + '</span>'
         }
-        
-        // borne Min et max largeur
-        if (largeurPx<20){
-          largeurPx = 20;
-        }else if (largeurPx>29){
-          largeurPx = 29;
-        }
-        
-        var largeurWidget = 80 + parseInt(largeurPx);
-        var hauteurPx = (largeurPx * 64 / 20);
-        largeurPx = largeurPx + 'px';
-        
-        var hasCommandIcon = cmd.find('.title div.cmdName i').is('i');
-        var hasCommandName = cmd.find('.title div.cmdName').text().length > 0;
-        var pos =10;
-        if (hasCommandName || hasCommandIcon){
-          cmd.find('.title').css('cssText', 'padding-bottom: ' + pos + 'px !important;');
-          pos=0;
-        }
-        
-        if (taux >= 0 && taux < 10){
+
+        let valeur = (parseFloat(_options.display_value).toFixed(1) - parseInt(_options.display_value)) === 0 ? parseInt(_options.display_value) : parseFloat(_options.display_value).toFixed(1);
+
+        if (valeur >= 0 && valeur < 10) {
           imgNumber = '00';
-        }else if (taux >= 10 && taux < 20) {
+        } else if (valeur >= 10 && valeur < 20) {
           imgNumber = '01';
-        }else if (taux >= 20 && taux < 30) {
+        } else if (valeur >= 20 && valeur < 30) {
           imgNumber = '02';
-        }else if (taux >= 30 && taux < 40) {
+        } else if (valeur >= 30 && valeur < 40) {
           imgNumber = '03';
-        }else if (taux >= 40 && taux < 50) {
+        } else if (valeur >= 40 && valeur < 50) {
           imgNumber = '04';
-        }else if (taux >= 50 && taux < 60) {
+        } else if (valeur >= 50 && valeur < 60) {
           imgNumber = '05';
-        }else if (taux >= 60 && taux < 70) {
+        } else if (valeur >= 60 && valeur < 70) {
           imgNumber = '06';
-        }else if (taux >= 70 && taux < 80) {
+        } else if (valeur >= 70 && valeur < 80) {
           imgNumber = '07';
-        }else if (taux >= 80 && taux < 90) {
+        } else if (valeur >= 80 && valeur < 90) {
           imgNumber = '08';
-        }else if (taux >= 90 && taux < 100) {
+        } else if (valeur >= 90 && valeur < 100) {
           imgNumber = '09';
-        }else{
+        } else {
           imgNumber = '10';
         }
-        
-        cmd.find('#hygro#id#').empty().append('<img class="hygroImg" src="data/img/hygrometer' + imgNumber + '.png"></img>');
-        cmd.find('.hygroImg').css('cssText', 'width:' + largeurPx + ' !important;');
-        
-        var imgMaxHeight = 93;
-        var imgMinHeight = 70;
-        
-        cmd.find('div.content-sm').css('cssText','height: ' + imgMinHeight +'px !important;min-height: ' + imgMinHeight +'px !important; max-height: ' + imgMaxHeight + 'px !important;display: table-cell !important')
-           if (hauteurPx>imgMinHeight){
-          pos = (hauteurPx - imgMinHeight)/2;
-        }
-        
-        cmd.attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate)
-        cmd.find('.state').empty().append(taux);
-          
-        var positionTop = 0;
-        if (hideHistory == 'hidden'){
-          var positionTop = 25 + pos;
-        }
-        else{
-          cmd.find('div.statsPart1').css('cssText', 'padding-top: ' + (pos) + 'px !important;text-align: left !important');
-          var positionTop = pos;
-        }
-        
-        cmd.find('.stats').css('line-height', '10px');
-        
-        var cssCurrentValue = 'position: relative !important;top: ' + positionTop + 'px !important;';
-        var cssCurrentValueUnit = 'position: relative !important;top: ' + (positionTop) + 'px !important;';
-        var widthValue = 58;
-        if ('#version#' === 'dashboard') {
-          if (!isEarlierVersion('4.4.0')){
-            var cssCurrentValueUnit = cssCurrentValue;
-            var widthValue = 59;
-          }
-        }
-      
-        cmd.find('.unitValue').css('cssText', cssCurrentValueUnit );
-        cmd.find('.state').css('cssText', cssCurrentValue + 'font-size: 15px !important;');
-        cmd.find('div span.tooltips').css('cssText', 'word-break:normal;font-size: 10px !important;font-weight: normal !important;');
-        cmd.css("padding-bottom", "15px");
-        cmd.css("width", largeurWidget + "px");
-        cmd.find('.img').css('height', hauteurPx + 'px');
-        cmd.find('.img').css('width', largeurPx);
-        cmd.find('.val').css('height', hauteurPx + 'px');
-        cmd.find('.val').css('width', widthValue + 'px');
+
+        cmd.querySelector('.left').innerHTML = '<img src="data/img/hygrometer' + imgNumber + '.png"></img>';
       }
-      jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#',alertLevel:'#alertLevel#'});
-    </script>
-  </div>
+    })
+
+    jeedom.cmd.refreshValue([{ cmd_id: '#id#', value: '#value#', display_value: '#state#', valueDate: '#valueDate#', collectDate: '#collectDate#', alertLevel: '#alertLevel#', unit: '#unite#' }])
+  </script>
+</div>
