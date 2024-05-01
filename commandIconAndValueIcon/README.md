@@ -30,8 +30,8 @@ et recopier le contenu du fichier.
 
 |Parametre|version|valeur|Aperçu|Description|
 |-|-|-|-|-|
-|time|duration or date|Dashboard<br/>Mobile|Affiche durée ou date de la valeur|
-|timeMobileOff|Mobile|0 ou 1|1 : désactive l'affichage du temp écoulé si activé pour le dashboard<br/>off :<br/>0 : reste actif comme le dashboard|
+|time|Dashboard<br/>Mobile|duration or date||Affiche durée ou date de la valeur|
+|timeMobileOff|Mobile|0 ou 1||1 : désactive l'affichage du temp écoulé si activé pour le dashboard<br/>off :<br/>0 : reste actif comme le dashboard|
 |iconOn|Dashboard<br/>Mobile|string<br/>(ex :`<i class="..."></i>`)||la balise contenant l'icone a afficher la valeur est vraie.<br/> (par défaut :`<i class="fas fa-circle"></i>`)|
 |iconOff|Dashboard<br/>Mobile|string<br/>(ex :`<i class="..."></i>`)||la balise contenant l'icone a afficher la valeur est fausse.<br/> (par défaut :`<i class="far fa-circle"></i>`)|
 |iconColor|Dashboard<br/>Mobile|string|![Exemple](../doc/commandIconAndValueIcon/cmdIconAndValueWithColor.png)|le code ou le nom de la couleur à appliquer (ex : "blue, "#0000FF")|

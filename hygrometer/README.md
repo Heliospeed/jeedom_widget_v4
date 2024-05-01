@@ -32,6 +32,6 @@ Il faut recopier les images dans `/var/www/html/data/img` soit en les copiants s
 
 ## Les paramètres (tous optionnels)
 
-|Parametre|version|valeur|Aperçu|Description|
+|Parametre|valeur|Description|
 |-|-|-|-|-|
-|time|duration or date|Dashboard<br/>Mobile|Affiche durée ou date de la valeur|
+|time|duration or date|Affiche durée ou date de la valeur|
